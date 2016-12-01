@@ -110,28 +110,26 @@ fit.cub <- function(matri, m, shift, optimizer) {
   y <- matri$y  # Response variable
   if (optimizer == 'nlminb') {
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub, y=y, M=m, 
-                  shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,  
-                  X.pi=X.pi, X.xi=X.xi)
+                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi)
   }
   else {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
-                 shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,  
-                 X.pi=X.pi, X.xi=X.xi)
+                 shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi)
   }
   names(fit$par) <- c(names.pi, names.xi)
   fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',
                                    y=y, M=m, shift=1, log=TRUE, 
-                                   p.pi=p.pi, p.xi=p.xi, 
                                    X.pi=X.pi, X.xi=X.xi)
-  inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi, 
+  inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi, n=length(y), 
                  X.pi=X.pi, X.xi=X.xi)
   fit <- c(fit, inputs)
 }
 
 
 # llcub -------------------------------------------------------------------
-llcub <- function(theta, y, M, shift=1, log=TRUE,
-                  p.pi, p.xi, X.pi, X.xi) {
+llcub <- function(theta, y, M, shift=1, log=TRUE, X.pi, X.xi) {
+  p.pi <- ncol(X.pi)  # Number of pi parameters
+  p.xi <- ncol(X.xi)  # Number of xi parameters
   theta.pi <- matrix(theta[1:p.pi], ncol=1)    # Theta vector pi
   theta.xi <- matrix(theta[-(1:p.pi)], ncol=1) # Theta vector xi
   pi <- pnorm(X.pi %*% theta.pi)
