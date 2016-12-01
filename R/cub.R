@@ -100,9 +100,9 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
   y <- model.frame(pi.fo, data=data)[, 1]
   list(mat.pi=mat.pi, mat.xi=mat.xi, y=y)
 }
-
+#' 
 #' @export
-
+#' 
 # fit.cub -----------------------------------------------------------------
 fit.cub <- function(matri, m, shift, optimizer) {
   p.pi <- ncol(matri$mat.pi)  # Number of pi parameters
