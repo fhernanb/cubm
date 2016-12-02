@@ -1,5 +1,5 @@
 # cubm
-The `cubm` package is useful to fit cub model by Maximum Likelihood method.
+The `cubm` package is useful to fit cub models by Maximum Likelihood method.
 
 If you want to install the `cubm` package you need to copy the next code into your console.
 
