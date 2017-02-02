@@ -8,6 +8,8 @@
 #' @param shift the minimum value of the response variable.
 #' @param data an optional data frame.
 #' @param optimizer two options are available: \code{\link[stats]{nlminb}} (default) or \code{\link[stats]{optim}}.
+#' @param pi.link link function to use for model pi parameter, by default is probit.
+#' @param xi.link link function to use for model xi parameter, by default is probit.
 #' 
 #' @examples
 #' 
@@ -78,7 +80,15 @@
 #' @export
 #' 
 # cub function ------------------------------------------------------------
-cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb') {
+cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
+                pi.link='probit', xi.link='probit') {
+  if(! optimizer %in% c('nlminb', 'optim')) 
+    stop("That optimizer is wrong")
+  if(! pi.link %in% c('probit', 'logit')) 
+    stop("That optimizer is wrong")
+  if(! xi.link %in% c('probit', 'logit')) 
+    stop("That optimizer is wrong")
+  
   mf <- match.call(expand.dots = FALSE)
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
   res <- fit.cub(matri, m=m, shift, optimizer)
