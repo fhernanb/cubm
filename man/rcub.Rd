@@ -30,4 +30,3 @@ y <- rcub(n=1000, pi=0.1, xi=0.1, m=5)
 barplot(prop.table(table(y)))
 
 }
-

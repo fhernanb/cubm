@@ -31,4 +31,3 @@ mod <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset, optimizer='nlminb')
 summary(mod)
 
 }
-

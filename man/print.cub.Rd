@@ -9,4 +9,3 @@
 \description{
 This function is used to print an object of class cub.
 }
-
