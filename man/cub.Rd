@@ -20,7 +20,9 @@ cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
 
 \item{optimizer}{two options are available: \code{\link[stats]{nlminb}} (default) or \code{\link[stats]{optim}}.}
 
-\item{pi.link}{link function to use for model pi parameter.}
+\item{pi.link}{link function to use for model pi parameter, by default is probit.}
+
+\item{xi.link}{link function to use for model xi parameter, by default is probit.}
 }
 \description{
 Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
