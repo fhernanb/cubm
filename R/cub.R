@@ -23,6 +23,14 @@
 #' # we need to apply the inverse link function to the fitted parameters
 #' pnorm(mod$par)
 #' 
+#' # Using logit link function
+#' y <- rcub(n=10000, pi=0.15, xi=0.60, m=5)
+#' mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
+#'            optimizer='nlminb',
+#'            pi.link='logit', xi.link='logit')
+#' # To obtain the fitted parameters in the appropiate scale
+#' # we need to apply the inverse link function to the fitted parameters
+#' 1 / (1 + exp(-mod$par))
 #' 
 #' # Test 2 ------------------------------------------------------------------
 #' # rcub.covariates is a function to generate a random sample from a cub model 
