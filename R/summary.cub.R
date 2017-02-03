@@ -37,11 +37,13 @@ summary.cub <- function(mod) {
   colnames(res) <- c('Estimate', 'Std. Error', 't value', 'Pr(>|t|)')
   res      <- as.data.frame(res)
   cat("---------------------------------------------------------------\n")
-  cat("---------------- Fixed effects for g(pi)-----------------------\n")
+  cat(paste("-------------- Fixed effects for ",
+            pi.link, "(pi) --------------------\n", sep=''))
   cat("---------------------------------------------------------------\n")
   printCoefmat(res[1:p.pi,], P.value=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
-  cat("---------------- Fixed effects for g(xi) ----------------------\n")
+  cat(paste("-------------- Fixed effects for ",
+            xi.link, "(xi) --------------------\n", sep=''))
   cat("---------------------------------------------------------------\n")
   printCoefmat(res[-(1:p.pi),], P.value=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
