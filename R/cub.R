@@ -142,7 +142,8 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link) {
                                    X.pi=X.pi, X.xi=X.xi,
                                    pi.link=pi.link, xi.link=xi.link)
   inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi, n=length(y), 
-                 X.pi=X.pi, X.xi=X.xi)
+                 X.pi=X.pi, X.xi=X.xi,
+                 pi.link=pi.link, xi.link=xi.link)
   fit <- c(fit, inputs)
 }
 
