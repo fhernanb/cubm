@@ -4,14 +4,14 @@
 \alias{dcub}
 \title{Density function for cub model}
 \usage{
-dcub(pi, xi, x, m, log = FALSE)
+dcub(x, pi, xi, m, log = FALSE)
 }
 \arguments{
+\item{x}{vector of quantiles.}
+
 \item{pi}{uncertainty parameter belongs to \code{(0, 1]}.}
 
 \item{xi}{feeling parameter belongs to \code{[0, 1]}.}
-
-\item{x}{vector of quantiles.}
 
 \item{m}{the maximum value.}
 
@@ -21,8 +21,8 @@ dcub(pi, xi, x, m, log = FALSE)
 This function gives the density for a cub model given parameters \eqn{\pi}, \eqn{\xi} and \eqn{x} value.
 }
 \examples{
-dcub(pi=0.3, xi=0.7, x=4, m=5)
-dcub(pi=0.5, xi=0.4, x=1, m=8)
-dcub(pi=c(0.3, 0.5), xi=c(0.7, 0.4), x=c(4, 1), m=c(5, 8))
+dcub(x=4, pi=0.3, xi=0.7, m=5)
+dcub(x=1, pi=0.5, xi=0.4, m=8)
+dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
 
 }

@@ -2,20 +2,20 @@
 #' 
 #' This function gives the density for a cub model given parameters \eqn{\pi}, \eqn{\xi} and \eqn{x} value.
 #' 
+#' @param x vector of quantiles.
 #' @param pi uncertainty parameter belongs to \code{(0, 1]}.
 #' @param xi feeling parameter belongs to \code{[0, 1]}.
-#' @param x vector of quantiles.
 #' @param m the maximum value.
 #' @param log logical; if TRUE, densities are given as log.
 #' 
 #' @examples 
-#' dcub(pi=0.3, xi=0.7, x=4, m=5)
-#' dcub(pi=0.5, xi=0.4, x=1, m=8)
-#' dcub(pi=c(0.3, 0.5), xi=c(0.7, 0.4), x=c(4, 1), m=c(5, 8))
+#' dcub(x=4, pi=0.3, xi=0.7, m=5)
+#' dcub(x=1, pi=0.5, xi=0.4, m=8)
+#' dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
 #' 
 #' @export
 #' 
-dcub <-function(pi, xi, x, m, log = FALSE) {
+dcub <-function(x, pi, xi, m, log = FALSE) {
   if (any(x <= 0))
     stop(paste("x must be positive", "\n", ""))
   if(any(x %% 1 != 0))
