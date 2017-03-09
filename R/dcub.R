@@ -22,7 +22,7 @@ dcub <-function(x, pi, xi, m, log = FALSE) {
     stop(paste("x must be an integer number", "\n", ""))
   if (any(m <= 0)) 
     stop(paste("m must be positive", "\n", ""))
-  if (any(pi <= 0 | pi > 1)) 
+  if (any(pi < 0 | pi > 1)) ## Era pi <= 0
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
     stop(paste("xi must be in [0, 1]", "\n", ""))
