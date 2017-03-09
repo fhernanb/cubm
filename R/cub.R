@@ -104,7 +104,7 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
   class(res) <- "cub"
   res
 }
-
+#' @export
 # model.matrix.cub --------------------------------------------------------
 model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
   stopifnot (class(pi.fo) == 'formula')
