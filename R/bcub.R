@@ -44,7 +44,7 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                        Data=data_list,
                        Iterations=N,
                        Algorithm="HARM",
-                       Thinning = 1,
+                       Thinning=1,
                        Initial.Values=rep(0, matri$npar))
   
   res$Summary1
@@ -54,8 +54,8 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
 model <- function(parm, Data) {
   X.pi <- Data$mat.pi  # Model matrix to pi
   X.xi <- Data$mat.xi  # Model matrix to xi
-  p.pi <- ncol(X.pi)  # Number of pi parameters
-  p.xi <- ncol(X.xi)  # Number of xi parameters
+  p.pi <- ncol(X.pi)   # Number of pi parameters
+  p.xi <- ncol(X.xi)   # Number of xi parameters
   theta.pi <- matrix(parm[1:p.pi], ncol=1)    # Theta vector pi
   theta.xi <- matrix(parm[-(1:p.pi)], ncol=1) # Theta vector xi
   
@@ -63,7 +63,7 @@ model <- function(parm, Data) {
   sigma0 <- 1000  # Hyperparameters for betas and gammas
   pi <- pnorm(X.pi %*% theta.pi)
   xi <- pnorm(X.xi %*% theta.xi)
-  loglik <- sum(dcub(Data$y, pi=pi, xi=xi, m=Data$m, log=T))
+  loglik <- sum(dcub(Data$y, pi=pi, xi=xi, m=Data$m, log=TRUE))
   postlik <- loglik + sum(dnormv(parm, mu0, sigma0, log=TRUE))
   list(LP=postlik,
        Dev= -2 * loglik,
