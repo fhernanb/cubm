@@ -2,6 +2,7 @@
 
 S3method(print,cub)
 S3method(summary,cub)
+export(bcub)
 export(cub)
 export(dcub)
 export(rcub)

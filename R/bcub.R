@@ -15,7 +15,7 @@
 #' 
 #' 1 + 3
 #' 
-#' #' @export
+#' @export
 #' 
 bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                 pi.link='probit', xi.link='probit', N=5000) {
