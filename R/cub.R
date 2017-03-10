@@ -89,7 +89,7 @@
 #' 
 # cub function ------------------------------------------------------------
 cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
-                pi.link='probit', xi.link='probit') {
+                pi.link='probit', xi.link='probit', ...) {
   if(! optimizer %in% c('nlminb', 'optim')) 
     stop("That optimizer is wrong")
   if(! pi.link %in% c('probit', 'logit')) 
@@ -99,7 +99,7 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
   
   mf <- match.call(expand.dots = FALSE)
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
-  res <- fit.cub(matri, m=m, shift, optimizer, pi.link, xi.link)
+  res <- fit.cub(matri, m=m, shift, optimizer, pi.link, xi.link, ...)
   res$call <- match.call()
   class(res) <- "cub"
   res
@@ -118,7 +118,7 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
 }
 
 # fit.cub -----------------------------------------------------------------
-fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link) {
+fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   p.pi <- ncol(matri$mat.pi)  # Number of pi parameters
   p.xi <- ncol(matri$mat.xi)  # Number of xi parameters
   X.pi <- matri$mat.pi  # Model matrix to pi
@@ -126,6 +126,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link) {
   names.pi <- colnames(matri$mat.pi)
   names.xi <- colnames(matri$mat.xi)
   y <- matri$y  # Response variable
+  
   if (optimizer == 'nlminb') {
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub, y=y, M=m, 
                   shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
@@ -134,7 +135,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link) {
   else {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
-                 pi.link=pi.link, xi.link=xi.link)
+                 pi.link=pi.link, xi.link=xi.link, ...)
   }
   names(fit$par) <- c(names.pi, names.xi)
   fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',

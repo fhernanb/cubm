@@ -5,7 +5,7 @@
 \title{cub}
 \usage{
 cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
-  pi.link = "probit", xi.link = "probit")
+  pi.link = "probit", xi.link = "probit", ...)
 }
 \arguments{
 \item{pi.fo}{an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit pi parameter.}
