@@ -50,10 +50,10 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                                              n=100,
                                              PGF=FALSE))
   results <- NULL
-  results$res.LD
+  results$res.LD <- res.LD
   results$data_list <- data_list
   results$matri <- matri
-  class(results) <- "bcub"
+  #class(results) <- "bcub"
   results
 }
 
