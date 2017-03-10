@@ -45,7 +45,11 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                        Iterations=N,
                        Algorithm="HARM",
                        Thinning=1,
-                       Initial.Values=rep(0, matri$npar))
+                       #Initial.Values=rep(0, matri$npar)
+                       Initial.Values=GIV(Model=model,
+                                          Data=data_list,
+                                          n=100,
+                                          PGF=FALSE))
   
   res$Summary1
 }
