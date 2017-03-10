@@ -1,8 +1,8 @@
-#' summary.cub
+#' summary.bcub
 #' 
 #' Summarizes a cub model.
 #' 
-#' @param mod An object of class \code{cub}.
+#' @param mod An object of class \code{bcub}.
 #' 
 #' @examples 
 #' # rcub.covariates is a function to generate a random sample from a cub model 
@@ -25,12 +25,15 @@
 #' @export
 #' 
 # summary function --------------------------------------------------------
-summary.cub <- function(mod) {
+summary.bcub <- function(mod) {
   .myenv <- environment()
   var.list <- as.list(mod)
   list2env(var.list , envir = .myenv)
-  estimate <- mod$par
-  se       <- sqrt(diag(solve(Hessian)))
+  
+  p.pi <- ncol(mod$matri$mat.pi) # Number of parameters for pi
+  estimate <- mod$Summary1[1:mod$matri$npar, 1]
+  se       <- mod$Summary1[1:mod$matri$npar, 2]
+  
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
@@ -49,21 +52,4 @@ summary.cub <- function(mod) {
   cat("---------------------------------------------------------------\n")
   cat("---------------------------------------------------------------\n")
 }
-#' 
-#' Print cub class
-#' 
-#' This function is used to print an object of class cub.
-#' 
-#' @export
-#' 
-# print function ----------------------------------------------------------
-print.cub <- function(mod, ...)
-{
-  cat("Call:\n")
-  print(mod$call)
-  cat("\n Results: \n")
-  cat("\n Estimated coefficients for g(pi): \n")
-  print(mod$par[1:mod$p.pi])
-  cat("\n Estimated coefficients for g(xi): \n")
-  print(mod$par[-(1:mod$p.pi)])
-}
+

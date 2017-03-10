@@ -49,8 +49,9 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                                           Data=data_list,
                                           n=100,
                                           PGF=FALSE))
-  
+  res$data_list <- data_list
   res$matri <- matri
+  class(res) <- "bcub"
   res
 }
 
