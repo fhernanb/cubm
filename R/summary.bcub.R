@@ -31,9 +31,10 @@ summary.bcub <- function(mod) {
   list2env(var.list , envir = .myenv)
   
   p.pi <- ncol(mod$matri$mat.pi) # Number of parameters for pi
-  estimate <- mod$Summary1[1:mod$matri$npar, 1]
-  se       <- mod$Summary1[1:mod$matri$npar, 2]
-  pi.link <- xi.link <- 'probit'
+  estimate <- mod$res.LD$Summary1[1:mod$matri$npar, 1]
+  se       <- mod$res.LD$Summary1[1:mod$matri$npar, 2]
+  pi.link <- mod$data_list$pi.link
+  xi.link <- mod$data_list$xi.link
   
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)

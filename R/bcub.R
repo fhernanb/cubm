@@ -18,7 +18,7 @@
 #' @export
 #' 
 bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
-                pi.link='probit', xi.link='probit', N=5000) {
+                 pi.link='probit', xi.link='probit', N=5000) {
   if(! pi.link %in% c('probit', 'logit')) 
     stop("That optimizer is wrong")
   if(! xi.link %in% c('probit', 'logit')) 
@@ -37,7 +37,9 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                     parm.names=matri$par.names,
                     y=matri$y, m=matri$m,
                     mat.pi=matri$mat.pi,
-                    mat.xi=matri$mat.xi)
+                    mat.xi=matri$mat.xi,
+                    pi.link=pi.link,
+                    xi.link=xi.link)
   
   library(LaplacesDemon)
   res.LD <- LaplacesDemon(Model=model,
@@ -53,7 +55,7 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
   results$res.LD <- res.LD
   results$data_list <- data_list
   results$matri <- matri
-  #class(results) <- "bcub"
+  class(results) <- "bcub"
   results
 }
 
@@ -68,8 +70,15 @@ model <- function(parm, Data) {
   
   mu0 <- 0        # Hyperparameters for betas and gammas
   sigma0 <- 20  # Hyperparameters for betas and gammas
-  pi <- pnorm(X.pi %*% theta.pi)
-  xi <- pnorm(X.xi %*% theta.xi)
+  
+  pi <- ifelse(Data$pi.link=='probit',
+               pnorm(X.pi %*% theta.pi),
+               1 / (1 + exp(- X.pi %*% theta.pi)))
+  
+  xi <- ifelse(Data$xi.link=='probit',
+               pnorm(X.xi %*% theta.xi),
+               1 / (1 + exp(- X.xi %*% theta.xi)))
+  
   loglik <- sum(dcub(Data$y, pi=pi, xi=xi, m=Data$m, log=TRUE))
   postlik <- loglik + sum(dnormv(parm, mu0, sigma0, log=TRUE))
   list(LP=postlik,
