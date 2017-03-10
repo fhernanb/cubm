@@ -33,6 +33,7 @@ summary.bcub <- function(mod) {
   p.pi <- ncol(mod$matri$mat.pi) # Number of parameters for pi
   estimate <- mod$Summary1[1:mod$matri$npar, 1]
   se       <- mod$Summary1[1:mod$matri$npar, 2]
+  pi.link <- xi.link <- 'probit'
   
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
