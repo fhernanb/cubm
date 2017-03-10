@@ -64,7 +64,7 @@ model <- function(parm, Data) {
   theta.xi <- matrix(parm[-(1:p.pi)], ncol=1) # Theta vector xi
   
   mu0 <- 0        # Hyperparameters for betas and gammas
-  sigma0 <- 100  # Hyperparameters for betas and gammas
+  sigma0 <- 15  # Hyperparameters for betas and gammas
   pi <- pnorm(X.pi %*% theta.pi)
   xi <- pnorm(X.xi %*% theta.xi)
   loglik <- sum(dcub(Data$y, pi=pi, xi=xi, m=Data$m, log=TRUE))
