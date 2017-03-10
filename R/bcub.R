@@ -40,19 +40,21 @@ bcub <- function(pi.fo, xi.fo, m, shift=1, data=NULL,
                     mat.xi=matri$mat.xi)
   
   library(LaplacesDemon)
-  res <- LaplacesDemon(Model=model,
-                       Data=data_list,
-                       Iterations=N,
-                       Algorithm="HARM",
-                       Thinning=1,
-                       Initial.Values=GIV(Model=model,
-                                          Data=data_list,
-                                          n=100,
-                                          PGF=FALSE))
-  res$data_list <- data_list
-  res$matri <- matri
-  class(res) <- "bcub"
-  res
+  res.LD <- LaplacesDemon(Model=model,
+                          Data=data_list,
+                          Iterations=N,
+                          Algorithm="HARM",
+                          Thinning=1,
+                          Initial.Values=GIV(Model=model,
+                                             Data=data_list,
+                                             n=100,
+                                             PGF=FALSE))
+  results <- NULL
+  results$res.LD
+  results$data_list <- data_list
+  results$matri <- matri
+  class(results) <- "bcub"
+  results
 }
 
 # The model specification
