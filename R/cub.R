@@ -90,7 +90,7 @@
 # cub function ------------------------------------------------------------
 cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
                 pi.link='probit', xi.link='probit', ...) {
-  if(! optimizer %in% c('nlminb', 'optim')) 
+  if(! optimizer %in% c('nlminb', 'optim', 'DEoptim')) 
     stop("That optimizer is wrong")
   if(! pi.link %in% c('probit', 'logit')) 
     stop("That optimizer is wrong")
@@ -137,11 +137,20 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link, ...)
   }
-  names(fit$par) <- c(names.pi, names.xi)
-  fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',
-                                   y=y, M=m, shift=1, log=TRUE, 
-                                   X.pi=X.pi, X.xi=X.xi,
-                                   pi.link=pi.link, xi.link=xi.link)
+  if (optimizer == 'DEoptim') {
+    require(DEoptim)
+    fit <- DEoptim(fn=llcub,
+                   lower=rep(-10, p.pi+p.xi),
+                   upper=rep(+10, p.pi+p.xi),
+                   y=y, M=m, 
+                   shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
+                   pi.link=pi.link, xi.link=xi.link)
+  }
+  #names(fit$par) <- c(names.pi, names.xi)
+  #fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',
+  #                                 y=y, M=m, shift=1, log=TRUE, 
+  #                                 X.pi=X.pi, X.xi=X.xi,
+  #                                 pi.link=pi.link, xi.link=xi.link)
   inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi, n=length(y), 
                  X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link)
