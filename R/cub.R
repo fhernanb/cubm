@@ -140,8 +140,10 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   if (optimizer == 'DEoptim') {
     require(DEoptim)
     
-    DEcontrol <- list(storepopfrom=1,
-                      itermax=1000,
+    DEcontrol <- list(strategy=3,
+                      storepopfrom=0,
+                      storepopfreq=1,
+                      itermax=200,
                       trace=FALSE)
     
     fit <- DEoptim(fn=llcub,
