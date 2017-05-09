@@ -139,14 +139,18 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   }
   if (optimizer == 'DEoptim') {
     require(DEoptim)
+    DEcontrol <- list(storepopfrom=1,
+                      itermax=200,
+                      trace=FALSE)
     fit <- DEoptim(fn=llcub,
                    lower=rep(-10, p.pi+p.xi),
-                   upper=rep(+10, p.pi+p.xi),
-                   y=y, M=m, 
-                   shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
-                   pi.link=pi.link, xi.link=xi.link)
+                   upper=rep( 10, p.pi+p.xi),
+                   control=DEcontrol,
+                   y, m, 
+                   1, TRUE, X.pi, X.xi,
+                   pi.link, xi.link)
   }
-  #names(fit$par) <- c(names.pi, names.xi)
+  names(fit$par) <- c(names.pi, names.xi)
   #fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',
   #                                 y=y, M=m, shift=1, log=TRUE, 
   #                                 X.pi=X.pi, X.xi=X.xi,
@@ -165,10 +169,7 @@ llcub <- function(theta, y, M, shift=1, log=TRUE, X.pi, X.xi,
   p.xi <- ncol(X.xi)  # Number of xi parameters
   theta.pi <- matrix(theta[1:p.pi], ncol=1)    # Theta vector pi
   theta.xi <- matrix(theta[-(1:p.pi)], ncol=1) # Theta vector xi
-  
-  #pi <- pnorm(X.pi %*% theta.pi)
-  #xi <- pnorm(X.xi %*% theta.xi)
-  
+
   pi <- ifelse(pi.link=='probit',
                pnorm(X.pi %*% theta.pi),
                1 / (1 + exp(- X.pi %*% theta.pi)))
