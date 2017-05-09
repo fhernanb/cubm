@@ -139,9 +139,11 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   }
   if (optimizer == 'DEoptim') {
     require(DEoptim)
+    
     DEcontrol <- list(storepopfrom=1,
-                      itermax=200,
+                      itermax=1000,
                       trace=FALSE)
+    
     fit <- DEoptim(fn=llcub,
                    lower=rep(-10, p.pi+p.xi),
                    upper=rep( 10, p.pi+p.xi),
@@ -152,11 +154,13 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
     fit$par <- fit$optim$bestmem
   }
   names(fit$par) <- c(names.pi, names.xi)
-  fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par, method='Richardson',
+  fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
+                                   method='Richardson',
                                    y=y, M=m, shift=1, log=TRUE, 
                                    X.pi=X.pi, X.xi=X.xi,
                                    pi.link=pi.link, xi.link=xi.link)
-  inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi, n=length(y), 
+  inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,
+                 n=length(y), 
                  X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link)
   fit <- c(fit, inputs)
