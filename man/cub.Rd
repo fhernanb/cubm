@@ -18,7 +18,7 @@ cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
 
 \item{data}{an optional data frame.}
 
-\item{optimizer}{two options are available: \code{\link[stats]{nlminb}} (default) or \code{\link[stats]{optim}}.}
+\item{optimizer}{two options are available: \code{\link[stats]{nlminb}} (default), \code{\link[stats]{optim}} or \code{\link[DEoptim]{DEoptim}}.}
 
 \item{pi.link}{link function to use for model pi parameter, by default is probit.}
 
@@ -32,21 +32,26 @@ Function to fit a cub model. The structure can have covariates or not to model \
 # Test 1 ------------------------------------------------------------------
 # Generating a random sample given the values of pi and xi
 y <- rcub(n=10000, pi=0.15, xi=0.60, m=5)
-mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
-           optimizer='nlminb')
-summary(mod)
+mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
+            optimizer='nlminb')
+summary(mod1)
 # To obtain the fitted parameters in the appropiate scale
 # we need to apply the inverse link function to the fitted parameters
-pnorm(mod$par)
+pnorm(mod1$par)
 
 # Using logit link function
-y <- rcub(n=10000, pi=0.15, xi=0.60, m=5)
-mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
-           optimizer='nlminb',
-           pi.link='logit', xi.link='logit')
+mod2 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
+            optimizer='nlminb',
+            pi.link='logit', xi.link='logit')
 # To obtain the fitted parameters in the appropiate scale
 # we need to apply the inverse link function to the fitted parameters
-1 / (1 + exp(-mod$par))
+1 / (1 + exp(-mod2$par))
+
+# Using DEoptim optimizer
+mod3 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
+            optimizer='DEoptim')
+summary(mod3)
+pnorm(mod3$par)
 
 # Test 2 ------------------------------------------------------------------
 # rcub.covariates is a function to generate a random sample from a cub model 
