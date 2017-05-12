@@ -43,6 +43,7 @@ pnorm(mod1$par)
 mod2 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
             optimizer='nlminb',
             pi.link='logit', xi.link='logit')
+summary(mod2)
 # To obtain the fitted parameters in the appropiate scale
 # we need to apply the inverse link function to the fitted parameters
 1 / (1 + exp(-mod2$par))
