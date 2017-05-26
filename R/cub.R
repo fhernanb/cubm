@@ -140,7 +140,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                   pi.link=pi.link, xi.link=xi.link)
   }
   
-  if (optimizer == 'nlminb') {
+  if (optimizer == 'optim') {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link, ...)
@@ -148,12 +148,6 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
   if (optimizer == 'DEoptim') {
     require(DEoptim)
-    
-    #DEcontrol <- list(strategy=3,
-    #                  storepopfrom=0,
-    #                  storepopfreq=1,
-    #                  itermax=200,
-    #                  trace=FALSE)
     
     DEcontrol <- list(...)
     
