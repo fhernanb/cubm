@@ -23,6 +23,8 @@ cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
 \item{pi.link}{link function to use for model pi parameter, by default is probit.}
 
 \item{xi.link}{link function to use for model xi parameter, by default is probit.}
+
+\item{...}{Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.}
 }
 \description{
 Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
