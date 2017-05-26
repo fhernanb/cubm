@@ -10,6 +10,7 @@
 #' @param optimizer two options are available: \code{\link[stats]{nlminb}} (default), \code{\link[stats]{optim}} or \code{\link[DEoptim]{DEoptim}}.
 #' @param pi.link link function to use for model pi parameter, by default is probit.
 #' @param xi.link link function to use for model xi parameter, by default is probit.
+#' @param ... Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.
 #' 
 #' @examples
 #' 
@@ -138,19 +139,23 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                   shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
                   pi.link=pi.link, xi.link=xi.link)
   }
-  else {
+  
+  if (optimizer == 'nlminb') {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link, ...)
   }
+  
   if (optimizer == 'DEoptim') {
     require(DEoptim)
     
-    DEcontrol <- list(strategy=3,
-                      storepopfrom=0,
-                      storepopfreq=1,
-                      itermax=200,
-                      trace=FALSE)
+    #DEcontrol <- list(strategy=3,
+    #                  storepopfrom=0,
+    #                  storepopfreq=1,
+    #                  itermax=200,
+    #                  trace=FALSE)
+    
+    DEcontrol <- list(...)
     
     fit <- DEoptim(fn=llcub,
                    lower=rep(-10, p.pi+p.xi),
@@ -160,6 +165,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                    1, TRUE, X.pi, X.xi,
                    pi.link, xi.link)
     fit$par <- fit$optim$bestmem
+
   }
   names(fit$par) <- c(names.pi, names.xi)
   fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
