@@ -117,7 +117,8 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
   stopifnot (class(pi.fo) == 'formula')
   stopifnot (class(xi.fo) == 'formula')
   response <- all.vars(pi.fo)[1]
-  xi.fo <- as.formula(paste(response, paste(as.character(xi.fo), collapse='')))
+  xi.fo <- as.formula(paste(response, paste(as.character(xi.fo),
+                                            collapse='')))
   mat.pi <- model.matrix(pi.fo, data)
   mat.xi <- model.matrix(xi.fo, data)
   y <- model.frame(pi.fo, data=data)[, 1]
@@ -130,9 +131,9 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   p.xi <- ncol(matri$mat.xi)  # Number of xi parameters
   X.pi <- matri$mat.pi  # Model matrix to pi
   X.xi <- matri$mat.xi  # Model matrix to xi
+  y <- matri$y  # Response variable
   names.pi <- colnames(matri$mat.pi)
   names.xi <- colnames(matri$mat.xi)
-  y <- matri$y  # Response variable
   
   if (optimizer == 'nlminb') {
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub, y=y, M=m, 
@@ -148,9 +149,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
   if (optimizer == 'DEoptim') {
     require(DEoptim)
-    
     DEcontrol <- list(...)
-    
     fit <- DEoptim(fn=llcub,
                    lower=rep(-10, p.pi+p.xi),
                    upper=rep( 10, p.pi+p.xi),
@@ -159,8 +158,9 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                    1, TRUE, X.pi, X.xi,
                    pi.link, xi.link)
     fit$par <- fit$optim$bestmem
-
   }
+  
+# Unifying the results
   names(fit$par) <- c(names.pi, names.xi)
   fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                    method='Richardson',
@@ -169,8 +169,10 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                                    pi.link=pi.link, xi.link=xi.link)
   inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,
                  n=length(y), 
-                 X.pi=X.pi, X.xi=X.xi,
-                 pi.link=pi.link, xi.link=xi.link)
+                 X.pi=X.pi,
+                 X.xi=X.xi,
+                 pi.link=pi.link,
+                 xi.link=xi.link)
   fit <- c(fit, inputs)
 }
 
