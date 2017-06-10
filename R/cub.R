@@ -164,19 +164,21 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   }
   
 # Unifying the results
-  names(fit$par) <- c(names.pi, names.xi)
-  fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
-                                   method='Richardson',
-                                   y=y, M=m, shift=1, log=TRUE, 
-                                   X.pi=X.pi, X.xi=X.xi,
-                                   pi.link=pi.link, xi.link=xi.link)
-  inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,
-                 n=length(y), 
-                 X.pi=X.pi,
-                 X.xi=X.xi,
-                 pi.link=pi.link,
-                 xi.link=xi.link)
-  fit <- c(fit, inputs)
+names(fit$par) <- c(names.pi, names.xi)
+# Obtaining the hessian
+fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
+                                 method='Richardson',
+                                 y=y, M=m, shift=1, log=TRUE, 
+                                 X.pi=X.pi, X.xi=X.xi,
+                                 pi.link=pi.link,
+                                 xi.link=xi.link)
+inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,
+               n=length(y), 
+               X.pi=X.pi,
+               X.xi=X.xi,
+               pi.link=pi.link,
+               xi.link=xi.link)
+fit <- c(fit, inputs)
 }
 
 
