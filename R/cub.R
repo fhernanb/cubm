@@ -137,15 +137,13 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
   if (optimizer == 'nlminb') {
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub, y=y, M=m, 
-                  shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
-                  pi.link=pi.link, xi.link=xi.link)
+                  X.pi=X.pi, X.xi=X.xi)
     fit$objective <- -fit$objective
   }
   
   if (optimizer == 'optim') {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
-                 shift=1, log=TRUE, X.pi=X.pi, X.xi=X.xi,
-                 pi.link=pi.link, xi.link=xi.link, ...)
+                 X.pi=X.pi, X.xi=X.xi, ...)
     fit$objective <- -fit$value
   }
   
@@ -156,9 +154,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                    lower=rep(-10, p.pi+p.xi),
                    upper=rep( 10, p.pi+p.xi),
                    control=DEcontrol,
-                   y, m, 
-                   1, TRUE, X.pi, X.xi,
-                   pi.link, xi.link)
+                   y, m, X.pi, X.xi)
     fit$par <- fit$optim$bestmem
     fit$objective <- -fit$optim$bestval
   }
@@ -168,10 +164,8 @@ names(fit$par) <- c(names.pi, names.xi)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
-                                 y=y, M=m, shift=1, log=TRUE, 
-                                 X.pi=X.pi, X.xi=X.xi,
-                                 pi.link=pi.link,
-                                 xi.link=xi.link)
+                                 y=y, M=m,
+                                 X.pi=X.pi, X.xi=X.xi)
 inputs <- list(y=y, M=m, shift=1, log=TRUE, p.pi=p.pi, p.xi=p.xi,
                n=length(y), 
                X.pi=X.pi,
