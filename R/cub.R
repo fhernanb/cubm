@@ -136,14 +136,14 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   names.xi <- colnames(matri$mat.xi)
   
   if (optimizer == 'nlminb') {
-    fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub, y=y, M=m, 
-                  X.pi=X.pi, X.xi=X.xi)
+    fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub,
+                  y=y, M=m, X.pi=X.pi, X.xi=X.xi)
     fit$objective <- -fit$objective
   }
   
   if (optimizer == 'optim') {
-    fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub, y=y, M=m, 
-                 X.pi=X.pi, X.xi=X.xi, ...)
+    fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub,
+                 y=y, M=m, X.pi=X.pi, X.xi=X.xi, ...)
     fit$objective <- -fit$value
   }
   
@@ -178,8 +178,6 @@ fit <- c(fit, inputs)
 
 # llcub -------------------------------------------------------------------
 llcub <- function(theta, y, M, X.pi, X.xi) {
-  b0 <- theta[1]
-  b1 <- theta[2]
   betas.pi <- matrix(theta[1:ncol(X.pi)], ncol=1)
   betas.xi <- matrix(theta[-(1:ncol(X.pi))], ncol=1)
   pi <- pnorm(X.pi %*% betas.pi)
