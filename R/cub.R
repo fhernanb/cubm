@@ -137,13 +137,15 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
   if (optimizer == 'nlminb') {
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub,
-                  y=y, M=m, X.pi=X.pi, X.xi=X.xi)
+                  y=y, M=m, X.pi=X.pi, X.xi=X.xi,
+                  pi.link=pi.link, xi.link=xi.link)
     fit$objective <- -fit$objective
   }
   
   if (optimizer == 'optim') {
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub,
-                 y=y, M=m, X.pi=X.pi, X.xi=X.xi, ...)
+                 y=y, M=m, X.pi=X.pi, X.xi=X.xi,
+                 pi.link=pi.link, xi.link=xi.link, ...)
     fit$objective <- -fit$value
   }
   
@@ -154,7 +156,8 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
                    lower=rep(-10, p.pi+p.xi),
                    upper=rep( 10, p.pi+p.xi),
                    control=DEcontrol,
-                   y, m, X.pi, X.xi)
+                   y, m, X.pi, X.xi,
+                   pi.link, xi.link)
     fit$par <- fit$optim$bestmem
     fit$objective <- -fit$optim$bestval
   }
@@ -177,11 +180,14 @@ fit <- c(fit, inputs)
 
 
 # llcub -------------------------------------------------------------------
-llcub <- function(theta, y, M, X.pi, X.xi) {
+llcub <- function(theta, y, M, X.pi, X.xi,
+                  pi.link='probit', xi.link='probit') {
   betas.pi <- matrix(theta[1:ncol(X.pi)], ncol=1)
   betas.xi <- matrix(theta[-(1:ncol(X.pi))], ncol=1)
   pi <- pnorm(X.pi %*% betas.pi)
   xi <- pnorm(X.xi %*% betas.xi)
+  if (pi.link == 'logit') pi <- 1 / (1 + exp(- X.pi %*% betas.pi))
+  if (xi.link == 'logit') xi <- 1 / (1 + exp(- X.xi %*% betas.xi))
   ll <- sum(dcub(pi=pi, xi=xi, x=y, m=M, log=TRUE))
   -ll  # minus to use with optim/nlminb function
 }
