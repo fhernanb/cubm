@@ -155,9 +155,11 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   }
   
   if (optimizer == 'optim') {
+    optimcontrol <- list(...)
     fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub,
                  y=y, M=m, X.pi=X.pi, X.xi=X.xi,
-                 pi.link=pi.link, xi.link=xi.link, ...)
+                 pi.link=pi.link, xi.link=xi.link,
+                 control=optimcontrol)
     fit$objective <- -fit$value
   }
   
