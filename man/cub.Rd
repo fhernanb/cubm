@@ -33,27 +33,30 @@ Function to fit a cub model. The structure can have covariates or not to model \
 
 # Test 1 ------------------------------------------------------------------
 # Generating a random sample given the values of pi and xi
-y <- rcub(n=10000, pi=0.15, xi=0.60, m=5)
-mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
-            optimizer='nlminb')
+set.seed(12378)
+y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
+mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1, optimizer='nlminb')
+# Summary table
 summary(mod1)
 # To obtain the fitted parameters in the appropiate scale
 # we need to apply the inverse link function to the fitted parameters
 pnorm(mod1$par)
 
 # Using logit link function
-mod2 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
-            optimizer='nlminb',
+mod2 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1, optimizer='nlminb',
             pi.link='logit', xi.link='logit')
+# Summary table
 summary(mod2)
-# To obtain the fitted parameters in the appropiate scale
-# we need to apply the inverse link function to the fitted parameters
+# To obtain the fitted parameters in the appropiate scale we need
+# to apply the inverse link function (logit) to the fitted parameters
 1 / (1 + exp(-mod2$par))
 
-# Using DEoptim optimizer
+# Using DEoptim optimizer, it is slower but it gives good results
 mod3 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1,
-            optimizer='DEoptim')
+            optimizer='DEoptim', trace=50, itermax=300)
+# Summary table
 summary(mod3)
+# we need to apply the inverse link function to obtain the parameters
 pnorm(mod3$par)
 
 # Test 2 ------------------------------------------------------------------
@@ -65,19 +68,25 @@ rcub.covariates <- function(n, b0, b1, g0, g1, m = 5, shift = 1) {
   pi <- pnorm(b0 + b1 * x1)
   xi <- pnorm(g0 + g1 * x2)
   y <- rcub(n = n, pi = pi, xi = xi, m = m, shift = shift)
-  data.frame(y, x1, x2)
+  data.frame(y, x1, x2, xi, pi)
 }
 
 # Generating the data
 dataset <- rcub.covariates(n=1000, b0=-1, b1=1, g0=-2, g1=1.5)
-# Fitting the model
-mod <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset,
-           optimizer='optim')
-summary(mod)
+
+# Fitting the model with optim optimizer
+fit1 <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset,
+            optimizer='optim')
+summary(fit1)
+
+# Fitting the model with DEoptim optimizer
+fit2 <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset,
+            optimizer='DEoptim', trace=0, itermax=300)
+summary(fit2)
 
 # Test 3 ------------------------------------------------------------------
 # Simulating a dataset with qualitative variables
-n <- 1000
+n <- 10000
 # Betas for pi
 b0 <- -1
 b1 <- 1
@@ -86,7 +95,7 @@ g0 <- -2
 g1 <- 1.5
 
 beta_japan <- 1 # Coefficient for japan
-beta_usa <- 1.5 # Coefficient for usa, france is reference level
+beta_usa <- -0.7 # Coefficient for usa, france is reference level
 
 # m and shift value
 m <- 5
@@ -108,5 +117,6 @@ mod <- cub(pi.fo = y ~ x1 + country,
            xi.fo = ~ x2 + country, m=5, data=dataset,
            optimizer='optim')
 summary(mod)
+
 
 }
