@@ -146,9 +146,11 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   names.xi <- colnames(matri$mat.xi)
   
   if (optimizer == 'nlminb') {
+    nlminbcontrol <- list(...)
     fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub,
                   y=y, M=m, X.pi=X.pi, X.xi=X.xi,
-                  pi.link=pi.link, xi.link=xi.link)
+                  pi.link=pi.link, xi.link=xi.link,
+                  control=nlminbcontrol)
     fit$objective <- -fit$objective
   }
   
