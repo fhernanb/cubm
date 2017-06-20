@@ -10,6 +10,7 @@
 #' @param optimizer two options are available: \code{\link[stats]{nlminb}} (default), \code{\link[stats]{optim}} or \code{\link[DEoptim]{DEoptim}}.
 #' @param pi.link link function to use for model pi parameter, by default is probit.
 #' @param xi.link link function to use for model xi parameter, by default is probit.
+#' @param subset an optional vector specifying a subset of observations to be used. For example, \code{subset = "sex =='male"} means that we want to use only the male data set.
 #' @param ... Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.
 #' 
 #' @examples
@@ -106,13 +107,14 @@
 #' 
 # cub function ------------------------------------------------------------
 cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, optimizer='nlminb',
-                pi.link='probit', xi.link='probit', ...) {
+                pi.link='probit', xi.link='probit', subset=NULL, ...) {
   if(! optimizer %in% c('nlminb', 'optim', 'DEoptim')) 
     stop("That optimizer is wrong")
   if(! pi.link %in% c('probit', 'logit')) 
     stop("That optimizer is wrong")
   if(! xi.link %in% c('probit', 'logit')) 
     stop("That optimizer is wrong")
+  if (!is.null(subset)) data <- subset(data, eval(parse(text=subset)))
   
   mf <- match.call(expand.dots = FALSE)
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
