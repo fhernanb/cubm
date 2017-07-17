@@ -182,7 +182,8 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
 # Unifying the results
 names(fit$par) <- c(names.pi, names.xi)
 # Obtaining fitted pi and xi
-fit$fitted.pi <- p.pi
+fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, fit)
+fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
@@ -213,29 +214,29 @@ llcub <- function(theta, y, M, X.pi, X.xi,
 }
 
 # fitted.pi and fitted.xi -------------------------------------------------
-fitted.pi<-function(fit) {
-  if  (fit$p.pi != 1 && fit$pi.link =='probit')
-  {pi=pnorm(fit$X.pi%*%fit$par[1:fit$p.pi])}
-  else if (fit$p.pi == 1 && fit$pi.link == 'probit')
-  {pi=pnorm(fit$par[1])}
-  else if (fit$p.pi != 1 && fit$pi.link =='logit')
-  {pi=1/(1 + exp(-(fit$X.pi%*%fit$par[1:fit$p.pi])))}
-  else 
-  {pi=1/(1 + exp(-fit$par[1]))}  
+fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, fit) {
+  if  (p.pi != 1 && pi.link =='probit')
+  {pi <- pnorm(X.pi %*% fit$par[1:p.pi])}
+  else if (p.pi == 1 && pi.link == 'probit')
+  {pi <- pnorm(fit$par[1])}
+  else if (p.pi != 1 && pi.link =='logit')
+  {pi <- 1/(1 + exp(-(X.pi %*% fit$par[1:p.pi])))}
+  else pi <- 1/(1 + exp(-fit$par[1]))  
   return(pi)    
 }
 
-fitted.xi<-function(fit) {
-  if (fit$p.xi != 1 && fit$xi.link =='probit')
-  {xi=pnorm(fit$X.xi%*%fit$par[-(1:fit$p.pi)])} 
-  else if (fit$p.xi == 1 && fit$xi.link == 'probit')
-  {xi=pnorm(fit$par[2])}
+fitted.xi <- function(p.pi, p.xi, xi.link, X.xi, fit) {
+  if (p.xi != 1 && xi.link =='probit')
+  {xi <- pnorm(X.xi %*% fit$par[-(1:p.pi)])} 
+  else if (p.xi == 1 && xi.link == 'probit')
+  {xi <- pnorm(fit$par[2])}
   else if (fit$p.xi != 1 && fit$xi.link =='logit')
-  {xi=1/(1 + exp(-(fit$X.pi%*%fit$par[-(1:fit$p.pi)])))}
-  else 
-  {xi=1/(1 + exp(-fit$par[2]))}
+  {xi <- 1/(1 + exp(-(X.pi %*% fit$par[-(1:p.pi)])))}
+  else xi <- 1/(1 + exp(-fit$par[2]))
   return(xi)    
 }
+
+
 
 
 
