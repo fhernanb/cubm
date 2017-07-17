@@ -197,6 +197,7 @@ fit <- c(fit, inputs)
 
 
 # llcub -------------------------------------------------------------------
+# This function calculates the minus log-likelihood
 llcub <- function(theta, y, M, X.pi, X.xi,
                   pi.link='probit', xi.link='probit') {
   betas.pi <- matrix(theta[1:ncol(X.pi)], ncol=1)
@@ -208,3 +209,31 @@ llcub <- function(theta, y, M, X.pi, X.xi,
   ll <- sum(dcub(pi=pi, xi=xi, x=y, m=M, log=TRUE))
   -ll  # minus to use with optim/nlminb function
 }
+
+# fitted.pi and fitted.xi -------------------------------------------------
+
+fitted.pi<-function(mod) {
+  if  (mod$p.pi != 1 && mod$pi.link =='probit')
+  {pi=pnorm(mod$X.pi%*%mod$par[1:mod$p.pi])}
+  else if (mod$p.pi == 1 && mod$pi.link == 'probit')
+  {pi=pnorm(mod$par[1])}
+  else if (mod$p.pi != 1 && mod$pi.link =='logit')
+  {pi=1/(1 + exp(-(mod$X.pi%*%mod$par[1:mod$p.pi])))}
+  else #(mod$p.pi == 1 && mod$pi.link == 'logit')
+  {pi=1/(1 + exp(-mod$par[1]))}  
+  return(pi)    
+}
+
+fitted.xi<-function(mod) {
+  if (mod$p.xi != 1 && mod$xi.link =='probit')
+  {xi=pnorm(mod$X.xi%*%mod$par[-(1:mod$p.pi)])} 
+  else if (mod$p.xi == 1 && mod$xi.link == 'probit')
+  {xi=pnorm(mod$par[2])}
+  else if (mod$p.xi != 1 && mod$xi.link =='logit')
+  {xi=1/(1 + exp(-(mod$X.pi%*%mod$par[-(1:mod$p.pi)])))}
+  else #(mod$p.xi == 1 && mod$xi.link == 'logit')
+  {xi=1/(1 + exp(-mod$par[2]))}
+  return(xi)    
+}
+
+
