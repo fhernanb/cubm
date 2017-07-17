@@ -4,8 +4,8 @@
 \alias{cub}
 \title{cub}
 \usage{
-cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
-  pi.link = "probit", xi.link = "probit", subset = NULL, ...)
+cub(pi.fo, xi.fo, m, shift = 1, data = NULL, subset = NULL,
+  optimizer = "nlminb", pi.link = "probit", xi.link = "probit", ...)
 }
 \arguments{
 \item{pi.fo}{an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit pi parameter.}
@@ -18,13 +18,13 @@ cub(pi.fo, xi.fo, m, shift = 1, data = NULL, optimizer = "nlminb",
 
 \item{data}{an optional data frame.}
 
+\item{subset}{an optional vector specifying a subset of observations to be used. For example, \code{subset = "sex =='male'"} means that we want to use only the male data set.}
+
 \item{optimizer}{two options are available: \code{\link[stats]{nlminb}} (default), \code{\link[stats]{optim}} or \code{\link[DEoptim]{DEoptim}}.}
 
-\item{pi.link}{link function to use for model pi parameter, by default is probit.}
+\item{pi.link}{link function to use for model pi parameter, two options are available, logit or probit, by default is probit.}
 
-\item{xi.link}{link function to use for model xi parameter, by default is probit.}
-
-\item{subset}{an optional vector specifying a subset of observations to be used. For example, \code{subset = "sex =='male'"} means that we want to use only the male data set.}
+\item{xi.link}{link function to use for model xi parameter, two options are available, logit or probit, by default is probit.}
 
 \item{...}{Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.}
 }
