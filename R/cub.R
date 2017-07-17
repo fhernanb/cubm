@@ -181,6 +181,8 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
 # Unifying the results
 names(fit$par) <- c(names.pi, names.xi)
+# Obtaining fitted pi and xi
+fit$fitted.pi <- p.pi
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
@@ -211,29 +213,29 @@ llcub <- function(theta, y, M, X.pi, X.xi,
 }
 
 # fitted.pi and fitted.xi -------------------------------------------------
-
-fitted.pi<-function(mod) {
-  if  (mod$p.pi != 1 && mod$pi.link =='probit')
-  {pi=pnorm(mod$X.pi%*%mod$par[1:mod$p.pi])}
-  else if (mod$p.pi == 1 && mod$pi.link == 'probit')
-  {pi=pnorm(mod$par[1])}
-  else if (mod$p.pi != 1 && mod$pi.link =='logit')
-  {pi=1/(1 + exp(-(mod$X.pi%*%mod$par[1:mod$p.pi])))}
-  else #(mod$p.pi == 1 && mod$pi.link == 'logit')
-  {pi=1/(1 + exp(-mod$par[1]))}  
+fitted.pi<-function(fit) {
+  if  (fit$p.pi != 1 && fit$pi.link =='probit')
+  {pi=pnorm(fit$X.pi%*%fit$par[1:fit$p.pi])}
+  else if (fit$p.pi == 1 && fit$pi.link == 'probit')
+  {pi=pnorm(fit$par[1])}
+  else if (fit$p.pi != 1 && fit$pi.link =='logit')
+  {pi=1/(1 + exp(-(fit$X.pi%*%fit$par[1:fit$p.pi])))}
+  else 
+  {pi=1/(1 + exp(-fit$par[1]))}  
   return(pi)    
 }
 
-fitted.xi<-function(mod) {
-  if (mod$p.xi != 1 && mod$xi.link =='probit')
-  {xi=pnorm(mod$X.xi%*%mod$par[-(1:mod$p.pi)])} 
-  else if (mod$p.xi == 1 && mod$xi.link == 'probit')
-  {xi=pnorm(mod$par[2])}
-  else if (mod$p.xi != 1 && mod$xi.link =='logit')
-  {xi=1/(1 + exp(-(mod$X.pi%*%mod$par[-(1:mod$p.pi)])))}
-  else #(mod$p.xi == 1 && mod$xi.link == 'logit')
-  {xi=1/(1 + exp(-mod$par[2]))}
+fitted.xi<-function(fit) {
+  if (fit$p.xi != 1 && fit$xi.link =='probit')
+  {xi=pnorm(fit$X.xi%*%fit$par[-(1:fit$p.pi)])} 
+  else if (fit$p.xi == 1 && fit$xi.link == 'probit')
+  {xi=pnorm(fit$par[2])}
+  else if (fit$p.xi != 1 && fit$xi.link =='logit')
+  {xi=1/(1 + exp(-(fit$X.pi%*%fit$par[-(1:fit$p.pi)])))}
+  else 
+  {xi=1/(1 + exp(-fit$par[2]))}
   return(xi)    
 }
+
 
 
