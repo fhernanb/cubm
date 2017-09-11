@@ -183,7 +183,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
 names(fit$par) <- c(names.pi, names.xi)
 # Obtaining fitted pi and xi
 fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, fit)
-fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
+#fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
@@ -204,7 +204,8 @@ fit <- c(fit, inputs)
 llcub <- function(theta, y, M, X.pi, X.xi,
                   pi.link='probit', xi.link='probit') {
   betas.pi <- matrix(theta[1:ncol(X.pi)], ncol=1)
-  betas.xi <- matrix(theta[-(1:ncol(X.pi))], ncol=1)
+  #betas.xi <- matrix(theta[-(1:ncol(X.pi))], ncol=1)
+  betas.xi <- matrix(theta[(ncol(X.pi)+1) : (ncol(X.pi)+ncol(X.xi))], ncol=1)
   pi <- pnorm(X.pi %*% betas.pi)
   xi <- pnorm(X.xi %*% betas.xi)
   if (pi.link == 'logit') pi <- 1 / (1 + exp(- X.pi %*% betas.pi))
@@ -215,24 +216,28 @@ llcub <- function(theta, y, M, X.pi, X.xi,
 
 # fitted.pi and fitted.xi -------------------------------------------------
 fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, fit) {
+  betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
+  betas.xi <- matrix(fit$par[-(1:ncol(X.pi))], ncol=1)
   if  (p.pi != 1 && pi.link =='probit')
-  {pi <- pnorm(X.pi %*% fit$par[1:p.pi])}
+  {pi <- pnorm(X.pi %*% betas.pi)}
   else if (p.pi == 1 && pi.link == 'probit')
-  {pi <- pnorm(fit$par[1])}
+  {pi <- pnorm(betas.pi)}
   else if (p.pi != 1 && pi.link =='logit')
-  {pi <- 1/(1 + exp(-(X.pi %*% fit$par[1:p.pi])))}
-  else pi <- 1/(1 + exp(-fit$par[1]))  
+  {pi <- 1/(1 + exp(-(X.pi %*% betas.pi)))}
+  else pi <- 1/(1 + exp(-beta.pi))  
   return(pi)    
 }
 
 fitted.xi <- function(p.pi, p.xi, xi.link, X.xi, fit) {
+  betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
+  betas.xi <- matrix(fit$par[-(1:ncol(X.pi))], ncol=1)
   if (p.xi != 1 && xi.link =='probit')
-  {xi <- pnorm(X.xi %*% fit$par[-(1:p.pi)])} 
+  {xi <- pnorm(X.xi %*% betas.xi)} 
   else if (p.xi == 1 && xi.link == 'probit')
-  {xi <- pnorm(fit$par[2])}
+  {xi <- pnorm(betas.xi)}
   else if (fit$p.xi != 1 && fit$xi.link =='logit')
-  {xi <- 1/(1 + exp(-(X.pi %*% fit$par[-(1:p.pi)])))}
-  else xi <- 1/(1 + exp(-fit$par[2]))
+  {xi <- 1/(1 + exp(-(X.pi %*% betas.xi)))}
+  else xi <- 1/(1 + exp(-betas.xi))
   return(xi)    
 }
 
