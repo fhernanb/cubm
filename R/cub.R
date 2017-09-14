@@ -117,10 +117,12 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, subset=NULL,
     stop("That optimizer is wrong")
   if (!is.null(subset)) data <- subset(data, eval(parse(text=subset)))
   
-  mf <- match.call(expand.dots = FALSE)
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
   res <- fit.cub(matri, m=m, shift, optimizer, pi.link, xi.link, ...)
-  res$call <- match.call()
+  res$pi.fo <- pi.fo
+  res$xi.fo <- xi.fo
+  res$parameters <- c('pi', 'xi')
+  res$call <- match.call(expand.dots = FALSE)
   class(res) <- "cub"
   res
 }
