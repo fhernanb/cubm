@@ -185,7 +185,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
 names(fit$par) <- c(names.pi, names.xi)
 # Obtaining fitted pi and xi
 fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, fit)
-#fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
+fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
