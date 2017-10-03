@@ -184,8 +184,8 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
 # Unifying the results
 names(fit$par) <- c(names.pi, names.xi)
 # Obtaining fitted pi and xi
-fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, fit)
-fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, fit)
+fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
+fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
@@ -217,7 +217,7 @@ llcub <- function(theta, y, M, X.pi, X.xi,
 }
 
 # fitted.pi and fitted.xi -------------------------------------------------
-fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, fit) {
+fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, X.xi, fit) {
   betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
   betas.xi <- matrix(fit$par[-(1:ncol(X.pi))], ncol=1)
   if  (p.pi != 1 && pi.link =='probit')
@@ -226,11 +226,11 @@ fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, fit) {
   {pi <- pnorm(betas.pi)}
   else if (p.pi != 1 && pi.link =='logit')
   {pi <- 1/(1 + exp(-(X.pi %*% betas.pi)))}
-  else pi <- 1/(1 + exp(-beta.pi))  
+  else pi <- 1/(1 + exp(-betas.pi))  
   return(pi)    
 }
 
-fitted.xi <- function(p.pi, p.xi, xi.link, X.xi, fit) {
+fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
   betas.xi <- matrix(fit$par[-(1:ncol(X.pi))], ncol=1)
   if (p.xi != 1 && xi.link =='probit')
