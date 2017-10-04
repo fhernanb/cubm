@@ -30,8 +30,9 @@ summary.cub <- function(mod) {
   var.list <- as.list(mod)
   list2env(var.list , envir = .myenv)
   estimate <- mod$par
+  # si diag(solve(Hessian)) es negativo alguno, se debe usar
+  # se <- bootcub(???) de lo contrario la linea que sigue se usa
   se       <- sqrt(diag(solve(Hessian)))
-  #se       <- sqrt(diag(solve(-Hessian)))
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
