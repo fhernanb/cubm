@@ -11,10 +11,11 @@
 #' @examples
 #' # The first model
 #' mod1 <- cub(pi.fo = global ~ 1, xi.fo = ~ 1, m=7, data=univer)
+#' mod1
 #' # Modifying right sides of pi and xi formulas
-#' mod2 <- update2.cub(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
+#' update2.cub(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
 #' # Modifying the dataset
-#' mod3 <- update2.cub(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
+#' update2.cub(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
 #'
 #' @export
 #' 
