@@ -4,7 +4,6 @@
 #' 
 #' @param object an existing fit obtained from cub function.
 #' @param ... additionally arguments to the call or arguments with changed values.
-#' @param xi feeling parameter belongs to \code{[0, 1]}
 #' @param evaluate if true evaluate the new call else return the call.
 #' 
 #' @examples
