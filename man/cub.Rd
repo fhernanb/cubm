@@ -35,7 +35,7 @@ Function to fit a cub model. The structure can have covariates or not to model \
 
 # Test 1 ------------------------------------------------------------------
 # Generating a random sample given the values of pi and xi
-set.seed(12378)
+set.seed(123)
 y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
 mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1, optimizer='nlminb')
 # Summary table
