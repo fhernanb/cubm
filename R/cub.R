@@ -17,7 +17,7 @@
 #' 
 #' # Test 1 ------------------------------------------------------------------
 #' # Generating a random sample given the values of pi and xi
-#' set.seed(12378)
+#' set.seed(123)
 #' y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
 #' mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, shift=1, optimizer='nlminb')
 #' # Summary table
@@ -185,7 +185,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
 names(fit$par) <- c(names.pi, names.xi)
 # Obtaining fitted pi and xi
 fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
-fit$fitted.xi <- fitted.xi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
+fit$fitted.xi <- fitted.xi(p.pi, p.xi, xi.link, X.pi, X.xi, fit)
 # Obtaining the hessian
 fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
                                  method='Richardson',
@@ -237,7 +237,7 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   {xi <- pnorm(X.xi %*% betas.xi)} 
   else if (p.xi == 1 && xi.link == 'probit')
   {xi <- pnorm(betas.xi)}
-  else if (fit$p.xi != 1 && fit$xi.link =='logit')
+  else if (p.xi != 1 && xi.link =='logit')
   {xi <- 1/(1 + exp(-(X.pi %*% betas.xi)))}
   else xi <- 1/(1 + exp(-betas.xi))
   return(xi)    
