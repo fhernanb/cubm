@@ -1,12 +1,11 @@
-#' update2.cub
-#' 
 #' Update and Re-fit a Model Call
 #' 
-#' @param n number of observations
-#' @param pi uncertainty parameter belongs to \code{(0, 1]}
+#' This function can be used to fit a new cub model in which has changed some arguments.
+#' 
+#' @param object an existing fit obtained from cub function.
+#' @param ... additionally arguments to the call or arguments with changed values.
 #' @param xi feeling parameter belongs to \code{[0, 1]}
-#' @param m the maximum value for random values
-#' @param shift the minimum value for random values
+#' @param evaluate if true evaluate the new call else return the call.
 #' 
 #' @examples
 #' # The first model
