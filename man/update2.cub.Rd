@@ -12,8 +12,6 @@ update2.cub(object, ..., evaluate = TRUE)
 \item{...}{additionally arguments to the call or arguments with changed values.}
 
 \item{evaluate}{if true evaluate the new call else return the call.}
-
-\item{xi}{feeling parameter belongs to \code{[0, 1]}}
 }
 \description{
 This function can be used to fit a new cub model in which has changed some arguments.
@@ -24,6 +22,7 @@ mod1 <- cub(pi.fo = global ~ 1, xi.fo = ~ 1, m=7, data=univer)
 mod1
 # Modifying right sides of pi and xi formulas
 update2.cub(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
+
 # Modifying the dataset
 update2.cub(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
 

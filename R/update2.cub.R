@@ -12,6 +12,7 @@
 #' mod1
 #' # Modifying right sides of pi and xi formulas
 #' update2.cub(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
+#' 
 #' # Modifying the dataset
 #' update2.cub(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
 #'
