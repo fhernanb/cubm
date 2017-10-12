@@ -11,6 +11,7 @@
 #' @param optimizer two options are available: \code{\link[stats]{nlminb}} (default), \code{\link[stats]{optim}} or \code{\link[DEoptim]{DEoptim}}.
 #' @param pi.link link function to use for model pi parameter, two options are available, logit or probit, by default is probit.
 #' @param xi.link link function to use for model xi parameter, two options are available, logit or probit, by default is probit.
+#' @param initial.values vector with the initial values to the searching procedure to nlminb and optim optimizers.
 #' @param ... Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.
 #' 
 #' @examples
@@ -108,7 +109,7 @@
 # cub function ------------------------------------------------------------
 cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, subset=NULL,
                 optimizer='nlminb',
-                pi.link='probit', xi.link='probit', ...) {
+                pi.link='probit', xi.link='probit', initial.values=NULL, ...) {
   if(! optimizer %in% c('nlminb', 'optim', 'DEoptim')) 
     stop("That optimizer is wrong")
   if(! pi.link %in% c('probit', 'logit')) 
@@ -118,7 +119,8 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, subset=NULL,
   if (!is.null(subset)) data <- subset(data, eval(parse(text=subset)))
   
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
-  res <- fit.cub(matri, m=m, shift, optimizer, pi.link, xi.link, ...)
+  res <- fit.cub(matri, m=m, shift, optimizer, pi.link, xi.link,
+                 initial.values, ...)
   res$pi.fo <- pi.fo
   res$xi.fo <- xi.fo
   res$parameters <- c('pi', 'xi')
@@ -141,7 +143,8 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
 }
 
 # fit.cub -----------------------------------------------------------------
-fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
+fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link,
+                    initial.values, ...) {
   p.pi <- ncol(matri$mat.pi)  # Number of pi parameters
   p.xi <- ncol(matri$mat.xi)  # Number of xi parameters
   X.pi <- matri$mat.pi  # Model matrix to pi
@@ -149,10 +152,12 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   y <- matri$y  # Response variable
   names.pi <- colnames(matri$mat.pi)
   names.xi <- colnames(matri$mat.xi)
+  if (is.null(initial.values) | length(initial.values) != (p.pi+p.xi))
+    initial.values <- rep(0, p.pi+p.xi)
   
   if (optimizer == 'nlminb') {
     nlminbcontrol <- list(...)
-    fit <- nlminb(start=rep(0, p.pi+p.xi), objective=llcub,
+    fit <- nlminb(start=initial.values, objective=llcub,
                   y=y, M=m, X.pi=X.pi, X.xi=X.xi,
                   pi.link=pi.link, xi.link=xi.link,
                   control=nlminbcontrol)
@@ -161,7 +166,7 @@ fit.cub <- function(matri, m, shift, optimizer, pi.link, xi.link, ...) {
   
   if (optimizer == 'optim') {
     optimcontrol <- list(...)
-    fit <- optim(par=rep(0, p.pi+p.xi), fn=llcub,
+    fit <- optim(par=initial.values, fn=llcub,
                  y=y, M=m, X.pi=X.pi, X.xi=X.xi,
                  pi.link=pi.link, xi.link=xi.link,
                  control=optimcontrol)
