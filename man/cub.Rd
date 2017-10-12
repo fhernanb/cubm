@@ -5,7 +5,8 @@
 \title{cub}
 \usage{
 cub(pi.fo, xi.fo, m, shift = 1, data = NULL, subset = NULL,
-  optimizer = "nlminb", pi.link = "probit", xi.link = "probit", ...)
+  optimizer = "nlminb", pi.link = "probit", xi.link = "probit",
+  initial.values = NULL, ...)
 }
 \arguments{
 \item{pi.fo}{an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit pi parameter.}
@@ -25,6 +26,8 @@ cub(pi.fo, xi.fo, m, shift = 1, data = NULL, subset = NULL,
 \item{pi.link}{link function to use for model pi parameter, two options are available, logit or probit, by default is probit.}
 
 \item{xi.link}{link function to use for model xi parameter, two options are available, logit or probit, by default is probit.}
+
+\item{initial.values}{vector with the initial values to the searching procedure to nlminb and optim optimizers.}
 
 \item{...}{Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.}
 }
