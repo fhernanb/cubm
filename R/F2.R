@@ -55,6 +55,7 @@
 #' F2.cub(mod)
 #'
 # F2.cub function ------------------------------------------------------------
+#' @export
 F2.cub<-function (mod)
 { 
       ccalc <- function(para){

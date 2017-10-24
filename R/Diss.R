@@ -18,6 +18,7 @@
 #'Diss.cub(fit)
 #'
 # Diss.cub function ------------------------------------------------------------
+#' @export
 Diss.cub<-function (mod)
 { 
   fr <- table(mod$y)/length(mod$y) 
