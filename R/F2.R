@@ -12,12 +12,12 @@
 #' 
 #' y <- rcub(n = 1000, pi = 0.15, xi = 0.60, m = 8)
 #' mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 8, shift = 1)
-#' F2.cub(mod)
+#' F2(mod)
 #' 
 #' # Test 2 
 #' 
 #' fit <- cub(pi.fo = usecondom ~ gender, xi.fo = ~ gender,  m = 4, data = data)
-#' F2.cub(fit)
+#' F2(fit)
 #'
 #' # Test 3 
 #' 
@@ -52,11 +52,11 @@
 #' mod <- cub(pi.fo = y ~ x1 + country,
 #'            xi.fo = ~ x2 + country, m = 5, data = dataset,
 #'            optimizer = 'optim')
-#' F2.cub(mod)
+#' F2(mod)
 #'
-# F2.cub function ------------------------------------------------------------
+# F2 function ------------------------------------------------------------
 #' @export
-F2.cub<-function (mod)
+F2 <- function (mod)
 { 
       ccalc <- function(para){
       para1 <- apply(para, 1, paux)

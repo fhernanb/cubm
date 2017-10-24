@@ -10,16 +10,16 @@
 #' 
 #'y <- rcub(n = 800, pi = 0.30, xi = 0.80, m = 6)
 #'mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 6, shift = 1, optimizer = "optim")
-#'Diss.cub(mod)
+#'Diss(mod)
 #' 
 #' # Test 2
 #' 
 #'fit <- cub(pi.fo = global ~ gender + lage, xi.fo = ~ willingn + residenc, m = 7, data = univer)
-#'Diss.cub(fit)
+#'Diss(fit)
 #'
-# Diss.cub function ------------------------------------------------------------
+# Diss function ------------------------------------------------------------
 #' @export
-Diss.cub<-function (mod)
+Diss <- function (mod)
 { 
   fr <- table(mod$y)/length(mod$y) 
   fr <- as.vector(fr)      
