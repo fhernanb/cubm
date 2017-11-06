@@ -232,7 +232,7 @@ fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, X.xi, fit) {
   else if (p.pi != 1 && pi.link =='logit')
   {pi <- 1/(1 + exp(-(X.pi %*% betas.pi)))}
   else pi <- 1/(1 + exp(-betas.pi))  
-  return(pi)    
+  return(as.numeric(pi))    
 }
 
 fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
@@ -245,7 +245,7 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   else if (p.xi != 1 && xi.link =='logit')
   {xi <- 1/(1 + exp(-(X.pi %*% betas.xi)))}
   else xi <- 1/(1 + exp(-betas.xi))
-  return(xi)    
+  return(as.numeric(xi))
 }
 
 
