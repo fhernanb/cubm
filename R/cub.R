@@ -125,6 +125,12 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, subset=NULL,
   res$xi.fo <- xi.fo
   res$parameters <- c('pi', 'xi')
   res$call <- match.call(expand.dots = FALSE)
+  
+  # To recuparate the data.frame
+  mf1 <- model.frame(formula=pi.fo, data=data)
+  mf2 <- model.frame(formula=xi.fo, data=data)
+  res$model <- cbind(mf1, mf2)
+  
   class(res) <- "cub"
   res
 }
