@@ -30,7 +30,7 @@ summary.cub <- function(mod) {
   var.list <- as.list(mod)
   list2env(var.list , envir = .myenv)
   estimate <- mod$par
-  se <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
+  elements <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
   if (any(is.na(elements))) se <- boot.cub(mod=mod)
   else se <- sqrt(elements)
   zvalue   <- estimate / se
