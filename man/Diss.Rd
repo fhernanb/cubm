@@ -2,27 +2,30 @@
 % Please edit documentation in R/Diss.R
 \name{Diss}
 \alias{Diss}
-\title{The dissimilarity index Diss for cub model}
+\title{The dissimilarity index Diss for the cub model}
 \usage{
 Diss(mod)
 }
 \arguments{
-\item{mod}{object of cub class}
+\item{mod}{object of cub class.}
 }
 \description{
-This function generates Diss coefficient, difference between observed relative frequencies and estimated (theoretical) probabilities.
+This function generates the Diss coefficient, the difference between observed relative frequencies and estimated (theoretical) probabilities.
 }
 \examples{
 
 # Test 1 
 
 y <- rcub(n = 800, pi = 0.30, xi = 0.80, m = 6)
-mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 6, shift = 1, optimizer = "optim")
-Diss(mod)
+fit <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 6, shift = 1, 
+           optimizer = "optim")
+Diss(fit)
 
 # Test 2
 
-fit <- cub(pi.fo = global ~ gender + lage, xi.fo = ~ willingn + residenc, m = 7, data = univer)
-Diss(fit)
+mod <- cub(pi.fo = global ~ gender + lage, 
+           xi.fo = ~ residenc + willingn ,
+           m = 7, data = univer)
+Diss(mod)
 
 }
