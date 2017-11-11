@@ -128,8 +128,11 @@ cub <- function(pi.fo, xi.fo, m, shift=1, data=NULL, subset=NULL,
   
   # To recuparate the data.frame
   mf1 <- model.frame(formula=pi.fo, data=data)
-  mf2 <- model.frame(formula=xi.fo, data=data)
-  res$model <- cbind(mf1, mf2)
+  if (xi.fo[2] != '1()') {
+    mf2 <- model.frame(formula=xi.fo, data=data)
+    res$model <- cbind(mf1, mf2)
+  }
+  else res$model <- mf1
   
   class(res) <- "cub"
   res
