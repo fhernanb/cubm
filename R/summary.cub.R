@@ -30,9 +30,9 @@ summary.cub <- function(mod) {
   var.list <- as.list(mod)
   list2env(var.list , envir = .myenv)
   estimate <- mod$par
-  # si diag(solve(Hessian)) es negativo alguno, se debe usar
-  # se <- bootcub(???) de lo contrario la linea que sigue se usa
-  se       <- sqrt(diag(solve(Hessian)))
+  se <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
+  if (any(is.na(elements))) se <- boot.cub(mod=mod)
+  else se <- sqrt(elements)
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
@@ -67,4 +67,18 @@ print.cub <- function(mod, ...)
   print(mod$par[1:mod$p.pi])
   cat("\n Estimated coefficients for g(xi): \n")
   print(mod$par[-(1:mod$p.pi)])
+}
+#'
+#' Bootstrap
+#' 
+#' This function is used to obtain standard error for betas
+#' by bootstrap method.
+#' 
+#' @export
+#' 
+boot.cub <- function(mod, nboot=100){
+data <- mod$model
+bs <- function(data, indices) update(mod, data=data[indices, ])$par
+resul <- boot::boot(data, statistic=bs, R=nboot)
+return(apply(resul$t, 2, sd))
 }
