@@ -16,16 +16,15 @@ This function generates the Diss coefficient, the difference between observed re
 
 # Test 1 
 
-y <- rcub(n = 800, pi = 0.30, xi = 0.80, m = 6)
-fit <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 6, shift = 1, 
-           optimizer = "optim")
+y <- rcub(n=800, pi=0.30, xi=0.80, m=6)
+fit <- cub(pi.fo=y ~ 1, xi.fo= ~ 1, m=6, shift=1)
 Diss(fit)
 
 # Test 2
 
-mod <- cub(pi.fo = global ~ gender + lage, 
-           xi.fo = ~ residenc + willingn ,
-           m = 7, data = univer)
+mod <- cub(pi.fo= global ~ gender + lage,
+           xi.fo= ~ residenc + willingn ,
+           m=7, data=univer)
 Diss(mod)
 
 }
