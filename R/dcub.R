@@ -2,8 +2,7 @@
 #' 
 #' Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
 #' 
-#' @param x vector of quantiles.
-#' @param q vector of quantiles.
+#' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
 #' @param pi uncertainty parameter belongs to \code{(0, 1]}.
 #' @param xi feeling parameter belongs to \code{[0, 1]}.
@@ -16,7 +15,9 @@
 #' dcub(x=4, pi=0.3, xi=0.7, m=5)
 #' dcub(x=1, pi=0.5, xi=0.4, m=8)
 #' dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
-#' 
+#' @name Cub
+NULL
+#' @rdname Cub
 #' @importFrom stats dbinom
 #' @export
 dcub <-function(x, pi, xi, m, log = FALSE, ...) {
@@ -34,17 +35,17 @@ dcub <-function(x, pi, xi, m, log = FALSE, ...) {
   if (log == FALSE) dens <- exp(dens)
   return(dens)
 }
-#' @rdname dcub
+#' @rdname Cub
 #' @export
 pcub <- function(q) {
   q
 }
-#' @rdname dcub
+#' @rdname Cub
 #' @export
 qcub <- function(p) {
   p
 }
-#' @rdname dcub
+#' @rdname Cub
 #' @export
 rcub <- function(n) {
   n
