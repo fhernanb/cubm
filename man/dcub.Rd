@@ -2,9 +2,18 @@
 % Please edit documentation in R/dcub.R
 \name{dcub}
 \alias{dcub}
-\title{Density function for cub model}
+\alias{pcub}
+\alias{qcub}
+\alias{rcub}
+\title{cub distribution}
 \usage{
 dcub(x, pi, xi, m, log = FALSE)
+
+pcub(q)
+
+qcub(p)
+
+rcub(n)
 }
 \arguments{
 \item{x}{vector of quantiles.}
@@ -16,9 +25,15 @@ dcub(x, pi, xi, m, log = FALSE)
 \item{m}{the maximum value.}
 
 \item{log}{logical; if TRUE, densities are given as log.}
+
+\item{q}{vector of quantiles.}
+
+\item{p}{vector of probabilities.}
+
+\item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.}
 }
 \description{
-This function gives the density for a cub model given parameters \eqn{\pi}, \eqn{\xi} and \eqn{x} value.
+Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
 }
 \examples{
 dcub(x=4, pi=0.3, xi=0.7, m=5)
