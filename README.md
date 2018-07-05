@@ -1,4 +1,5 @@
-# cubm
+ cubm <img src="man/figures/logo.png" align="right" height="120" width="120"/>
+======================
 
 [![Travis build status](https://travis-ci.org/fhernanb/cubm.svg?branch=master)](https://travis-ci.org/fhernanb/cubm)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -6,9 +7,7 @@
 
 The `cubm` package is useful to fit cub models by Maximum Likelihood method.
 
-You can install the **development** version from
-[Github](https://github.com/fhernanb/cubm), for this
-you need to copy the next code into your console.
+You can install the **development** version from Github, for this you need to copy the next code into your console.
 
 ```{r, eval = FALSE}
 if (!require('devtools')) install.packages('devtools')

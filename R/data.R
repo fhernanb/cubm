@@ -15,7 +15,7 @@
 #'   \item{gender}{A factor with levels: 0 = man, 1 = woman}
 #'   \item{diploma}{A factor with levels: 1 = classic studies, 2 = scientific studies, 3 = linguistic, 4 = Professional, 5 = Technical/Accountancy, 6 = others}
 #'   \item{residence}{A factor with levels: 1 = city NA, 2 = district NA, 3 = others}
-#'   \item{changeFa}{A factor with levels: 1 = changed faculty, 2 = not changed faculty}
+#'   \item{changefa}{A factor with levels: 1 = changed faculty, 2 = not changed faculty}
 #'   \item{informat}{Level of satisfaction about the collected information}
 #'   \item{willingn}{Level of satisfaction about the willingness of the staff}
 #'   \item{officeho}{Judgment about the Office hours}
