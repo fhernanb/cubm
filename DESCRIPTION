@@ -1,5 +1,5 @@
 Package: cubm
-Title: Tools to fit cub models via Maximum Likelihood.
+Title: Tools to fit cub models via Maximum Likelihood
 Version: 0.0.0.9000
 Authors@R: c(
     person("Freddy", "Hernandez", email = "fhernanb@unal.edu.co", role = c("aut", "cre")),
@@ -8,7 +8,8 @@ Authors@R: c(
 Description: This package presents a set of tools to fit cub model. The user can include or not covariates to model the parameters pi and xi.
 Depends:
     R (>= 3.3.0)
-License: GNU GPL v3
+License: GPL-3
+URL: https://github.com/fhernanb/cubm
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

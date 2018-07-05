@@ -1,2 +1,5 @@
-^.*\.Rproj$
+^README\.Rmd$
+Makefile
+^cubm\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
