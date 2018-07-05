@@ -20,7 +20,7 @@ NULL
 #' @rdname Cub
 #' @importFrom stats dbinom
 #' @export
-dcub <-function(x, pi, xi, m, log = FALSE, ...) {
+dcub <-function(x, pi, xi, m, log = FALSE) {
   if (any(x <= 0))
     stop(paste("x must be positive", "\n", ""))
   if(any(x %% 1 != 0))
