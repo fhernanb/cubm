@@ -1,4 +1,4 @@
-#' cub distribution
+#' Cub distribution
 #' 
 #' Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
 #' 
@@ -17,6 +17,7 @@
 #' dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
 #' @name Cub
 NULL
+#'
 #' @rdname Cub
 #' @importFrom stats dbinom
 #' @export
@@ -37,16 +38,65 @@ dcub <-function(x, pi, xi, m, log = FALSE) {
 }
 #' @rdname Cub
 #' @export
-pcub <- function(q) {
-  q
+pcub <- function(q, pi, xi, m, shift = 1, lower.tail=TRUE, log=FALSE) 
+{
+  if(any(q %% 1 != 0))
+    stop(paste("q must be an integer number", "\n", ""))
+  if (any(m <= shift)) 
+    stop("m parameter must be greater than shift", "\n", "")
+  if (any(pi <= 0 | pi > 1)) 
+    stop(paste("pi must be in (0,1]", "\n", ""))
+  if (any(xi < 0 | xi > 1)) 
+    stop(paste("xi must be in [0, 1]", "\n", ""))
+  if (any(q > m | q < 1))
+    stop("q must be 1,2, ...,m", "\n", "")
+  prob <- cumsum(apply(as.matrix(1:m, ncol=m, nrow=1),
+                       MARGIN=1, dcub, pi, xi, m))
+  p <- prob[q]
+  if (lower.tail == FALSE) p <- 1-p
+  if (log) p <- log(p)
+  return(p)
 }
 #' @rdname Cub
 #' @export
-qcub <- function(p) {
-  p
-}
+qcub <- function(p, pi, xi, m, shift=1, lower.tail=TRUE, log=FALSE)
+{
+  if (any(p < 0 | p > 1)) 
+    stop(paste("p must be in [0,1]", "\n", ""))
+  if (any(m <= shift)) 
+    stop("m parameter must be greater than shift", "\n", "")
+  if (any(pi <= 0 | pi > 1)) 
+    stop(paste("pi must be in (0,1]", "\n", ""))
+  if (any(xi < 0 | xi > 1)) 
+    stop(paste("xi must be in [0, 1]", "\n", ""))
+  
+  prob <- cumsum(apply(as.matrix(1:m, ncol = m, nrow = 1), 
+                       1, dcub, pi, xi, m))
+  l <- sapply(p, function(x) sum(x > prob))
+  l <- replace(l, l==0, 1)
+  la <- cbind(prob[l], prob[l+1])
+  la[is.na(la)] <- m
+  med <- apply(la, 1, mean)
+  med[is.na(med)] <- m 
+  r <- ifelse (p < med-0.0001, l, l+1)
+  if (lower.tail == TRUE)
+    r
+  else m-r
+} 
 #' @rdname Cub
+#' @importFrom stats rbinom runif
 #' @export
-rcub <- function(n) {
-  n
+rcub <- function(n, pi, xi, m = 5, shift = 1) {
+  if (any(pi <= 0 | pi >1)) 
+    stop(paste("pi must be in (0,1]", "\n", ""))
+  if (any(xi < 0 | xi > 1)) 
+    stop(paste("xi must be in [0, 1]", "\n", ""))
+  if (any(m <= shift)) 
+    stop("m parameter must be greater than shift", "\n", "")
+  #  Define the component distributions
+  rshifted.binom <- rbinom(n=n, size=m-shift, prob=1-xi) + shift
+  rdiscrete.unif <- sample(shift:m, n, replace=T)
+  mixture <- runif(n)
+  r <- ifelse(mixture < pi, rshifted.binom, rdiscrete.unif)
+  return(r)
 }

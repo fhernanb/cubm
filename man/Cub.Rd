@@ -6,15 +6,15 @@
 \alias{pcub}
 \alias{qcub}
 \alias{rcub}
-\title{cub distribution}
+\title{Cub distribution}
 \usage{
-dcub(x, pi, xi, m, log = FALSE, ...)
+dcub(x, pi, xi, m, log = FALSE)
 
-pcub(q)
+pcub(q, pi, xi, m, shift = 1, lower.tail = TRUE, log = FALSE)
 
-qcub(p)
+qcub(p, pi, xi, m, shift = 1, lower.tail = TRUE, log = FALSE)
 
-rcub(n)
+rcub(n, pi, xi, m = 5, shift = 1)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -27,11 +27,11 @@ rcub(n)
 
 \item{log}{logical; if TRUE, densities are given as log.}
 
+\item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.}
+
 \item{p}{vector of probabilities.}
 
 \item{n}{number of observations}
-
-\item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.}
 }
 \description{
 Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
