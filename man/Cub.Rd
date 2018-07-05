@@ -10,11 +10,11 @@
 \usage{
 dcub(x, pi, xi, m, log = FALSE)
 
-pcub(q, pi, xi, m, shift = 1, lower.tail = TRUE, log = FALSE)
+pcub(q, pi, xi, m, lower.tail = TRUE, log = FALSE)
 
-qcub(p, pi, xi, m, shift = 1, lower.tail = TRUE, log = FALSE)
+qcub(p, pi, xi, m, lower.tail = TRUE, log = FALSE)
 
-rcub(n, pi, xi, m = 5, shift = 1)
+rcub(n, pi, xi, m = 5)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -37,7 +37,21 @@ rcub(n, pi, xi, m = 5, shift = 1)
 Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
 }
 \examples{
+# Examples with dcub
+
 dcub(x=4, pi=0.3, xi=0.7, m=5)
 dcub(x=1, pi=0.5, xi=0.4, m=8)
 dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
+
+# Examples with pcub
+
+# low xi is associated with high ratings
+pcub(q=5, pi=0.5, xi=0.2, m=10, lower.tail=FALSE)
+
+# high pi is associated with indecision in choosing
+pcub(q=3, pi=0.9, xi=0.5, m=4) 
+
+# probability for several quantiles
+pcub(q=c(1,3,5), pi=0.3, xi=0.6, m=5)
+
 }

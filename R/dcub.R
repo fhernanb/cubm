@@ -12,9 +12,23 @@
 #' @param lower.tail logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.
 #' 
 #' @examples 
+#' # Examples with dcub
+#' 
 #' dcub(x=4, pi=0.3, xi=0.7, m=5)
 #' dcub(x=1, pi=0.5, xi=0.4, m=8)
 #' dcub(x=c(4, 1), pi=c(0.3, 0.5), xi=c(0.7, 0.4), m=c(5, 8))
+#'
+#' # Examples with pcub
+#' 
+#' # low xi is associated with high ratings
+#' pcub(q=5, pi=0.5, xi=0.2, m=10, lower.tail=FALSE)
+#' 
+#' # high pi is associated with indecision in choosing
+#' pcub(q=3, pi=0.9, xi=0.5, m=4) 
+#' 
+#' # probability for several quantiles
+#' pcub(q=c(1,3,5), pi=0.3, xi=0.6, m=5)
+#' 
 #' @name Cub
 NULL
 #'
@@ -38,12 +52,12 @@ dcub <-function(x, pi, xi, m, log = FALSE) {
 }
 #' @rdname Cub
 #' @export
-pcub <- function(q, pi, xi, m, shift = 1, lower.tail=TRUE, log=FALSE) 
+pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) 
 {
   if(any(q %% 1 != 0))
     stop(paste("q must be an integer number", "\n", ""))
-  if (any(m <= shift)) 
-    stop("m parameter must be greater than shift", "\n", "")
+  if (any(m <= 1)) 
+    stop("m parameter must be greater than 1", "\n", "")
   if (any(pi <= 0 | pi > 1)) 
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
@@ -59,12 +73,12 @@ pcub <- function(q, pi, xi, m, shift = 1, lower.tail=TRUE, log=FALSE)
 }
 #' @rdname Cub
 #' @export
-qcub <- function(p, pi, xi, m, shift=1, lower.tail=TRUE, log=FALSE)
+qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE)
 {
   if (any(p < 0 | p > 1)) 
     stop(paste("p must be in [0,1]", "\n", ""))
-  if (any(m <= shift)) 
-    stop("m parameter must be greater than shift", "\n", "")
+  if (any(m <= 1)) 
+    stop("m parameter must be greater than 1", "\n", "")
   if (any(pi <= 0 | pi > 1)) 
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
@@ -86,16 +100,16 @@ qcub <- function(p, pi, xi, m, shift=1, lower.tail=TRUE, log=FALSE)
 #' @rdname Cub
 #' @importFrom stats rbinom runif
 #' @export
-rcub <- function(n, pi, xi, m = 5, shift = 1) {
+rcub <- function(n, pi, xi, m = 5) {
   if (any(pi <= 0 | pi >1)) 
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
     stop(paste("xi must be in [0, 1]", "\n", ""))
-  if (any(m <= shift)) 
-    stop("m parameter must be greater than shift", "\n", "")
+  if (any(m <= 1)) 
+    stop("m parameter must be greater than 1", "\n", "")
   #  Define the component distributions
-  rshifted.binom <- rbinom(n=n, size=m-shift, prob=1-xi) + shift
-  rdiscrete.unif <- sample(shift:m, n, replace=T)
+  rshifted.binom <- rbinom(n=n, size=m-1, prob=1-xi) + 1
+  rdiscrete.unif <- sample(1:m, n, replace=T)
   mixture <- runif(n)
   r <- ifelse(mixture < pi, rshifted.binom, rdiscrete.unif)
   return(r)
