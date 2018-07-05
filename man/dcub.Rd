@@ -7,7 +7,7 @@
 \alias{rcub}
 \title{cub distribution}
 \usage{
-dcub(x, pi, xi, m, log = FALSE)
+dcub(x, pi, xi, m, log = FALSE, ...)
 
 pcub(q)
 
@@ -29,6 +29,8 @@ rcub(n)
 \item{q}{vector of quantiles.}
 
 \item{p}{vector of probabilities.}
+
+\item{n}{number of observations}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.}
 }

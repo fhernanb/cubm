@@ -7,6 +7,7 @@
 #' @param p vector of probabilities.
 #' @param pi uncertainty parameter belongs to \code{(0, 1]}.
 #' @param xi feeling parameter belongs to \code{[0, 1]}.
+#' @param n number of observations
 #' @param m the maximum value.
 #' @param log logical; if TRUE, densities are given as log.
 #' @param lower.tail logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.
@@ -18,7 +19,7 @@
 #' 
 #' @importFrom stats dbinom
 #' @export
-dcub <-function(x, pi, xi, m, log = FALSE) {
+dcub <-function(x, pi, xi, m, log = FALSE, ...) {
   if (any(x <= 0))
     stop(paste("x must be positive", "\n", ""))
   if(any(x %% 1 != 0))
