@@ -32,7 +32,7 @@
 #' # Examples with qcub
 #' 
 #' #' # low xi is associated with high ratings
-#' qcub(p=0.1, pi=0.5, xi=0.1, m=7, lower.tail=T)
+#' qcub(p=0.1, pi=0.5, xi=0.1, m=7, lower.tail=TRUE)
 #' 
 #' # high pi is associated with indecision in choosing
 #' qcub(p=0.86, pi=0.9, xi=0.5, m=4)
