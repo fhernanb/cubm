@@ -54,4 +54,23 @@ pcub(q=3, pi=0.9, xi=0.5, m=4)
 # probability for several quantiles
 pcub(q=c(1,3,5), pi=0.3, xi=0.6, m=5)
 
+# Examples with qcub
+
+#' # low xi is associated with high ratings
+qcub(p=0.1, pi=0.5, xi=0.1, m=7, lower.tail=T)
+
+# high pi is associated with indecision in choosing
+qcub(p=0.86, pi=0.9, xi=0.5, m=4)
+
+#quantiles for several probabilities 
+qcub(p=c(1,0.5,0.9), pi=0.3, xi=0.6, m=5)
+
+# Examples with rcub
+#' # Random sample, low xi is associated with high ratings
+x <- rcub(n=1000, pi=0.9, xi=0.1, m=5)
+barplot(prop.table(table(x)))
+
+# Random sample, low pi is associated with random choices
+y <- rcub(n=1000, pi=0.1, xi=0.1, m=5)
+barplot(prop.table(table(y)))
 }
