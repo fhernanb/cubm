@@ -102,7 +102,7 @@
 #' summary(mod)
 #' 
 #' 
-#' @importFrom stats model.matrix model.frame nlminb optim
+#' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula
 #' @importFrom DEoptim DEoptim
 #' @export
 #' 
