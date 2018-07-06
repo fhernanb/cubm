@@ -1,4 +1,4 @@
-#' Cub distribution
+#' cub distribution
 #' 
 #' Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
 #' 
@@ -48,10 +48,10 @@
 #' # Random sample, low pi is associated with random choices
 #' y <- rcub(n=1000, pi=0.1, xi=0.1, m=5)
 #' barplot(prop.table(table(y)))
-#' @name Cub
+#' @name cub_dist
 NULL
 #'
-#' @rdname Cub
+#' @rdname cub_dist
 #' @importFrom stats dbinom
 #' @export
 dcub <-function(x, pi, xi, m, log = FALSE) {
@@ -69,7 +69,7 @@ dcub <-function(x, pi, xi, m, log = FALSE) {
   if (log == FALSE) dens <- exp(dens)
   return(dens)
 }
-#' @rdname Cub
+#' @rdname cub_dist
 #' @export
 pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) 
 {
@@ -90,7 +90,7 @@ pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE)
   if (log) p <- log(p)
   return(p)
 }
-#' @rdname Cub
+#' @rdname cub_dist
 #' @export
 qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE)
 {
@@ -116,7 +116,7 @@ qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE)
     r
   else m-r
 } 
-#' @rdname Cub
+#' @rdname cub_dist
 #' @importFrom stats rbinom runif
 #' @export
 rcub <- function(n, pi, xi, m = 5) {
