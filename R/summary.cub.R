@@ -74,7 +74,8 @@ print.cub <- function(mod)
 #' This function is used to obtain standard error for betas
 #' by bootstrap method.
 #' 
-boot.cub <- function(mod, nboot=100){
+boot.cub <- function(mod){
+  nboot <- 100
   data <- mod$model
   bs <- function(data, indices) update(mod, data=data[indices, ])$par
   resul <- boot(data, statistic=bs, R=nboot)

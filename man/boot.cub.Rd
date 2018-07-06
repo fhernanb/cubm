@@ -4,7 +4,7 @@
 \alias{boot.cub}
 \title{Bootstrap}
 \usage{
-boot.cub(mod, nboot = 100)
+boot.cub(mod)
 }
 \description{
 This function is used to obtain standard error for betas
