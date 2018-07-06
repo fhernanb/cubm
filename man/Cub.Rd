@@ -2,6 +2,7 @@
 % Please edit documentation in R/cub.R
 \name{cub}
 \alias{cub}
+\alias{summary.cub}
 \title{cub}
 \usage{
 cub(pi.fo, xi.fo, m, data = NULL, subset = NULL, optimizer = "nlminb",

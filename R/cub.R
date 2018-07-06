@@ -2,6 +2,8 @@
 #' 
 #' Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
 #' 
+#' @aliases summary.cub
+#' 
 #' @param pi.fo an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit pi parameter.
 #' @param xi.fo an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit xi parameter without left side.
 #' @param m the maximum value of the response variable.
@@ -254,7 +256,51 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   else xi <- 1/(1 + exp(-betas.xi))
   return(as.numeric(xi))
 }
-
+# -----------------------------------------------------------------
+# --------------------- summary function --------------------------
+# -----------------------------------------------------------------
+#' @importFrom stats pnorm update
+#' @importFrom boot boot
+#' @export
+#' 
+# summary function --------------------------------------------------------
+summary.cub <- function(mod, ...) {
+  .myenv <- environment()
+  var.list <- as.list(mod)
+  list2env(var.list , envir = .myenv)
+  estimate <- mod$par
+  elements <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
+  if (any(is.na(elements))) se <- boot.cub(mod=mod)
+  else se <- sqrt(elements)
+  zvalue   <- estimate / se
+  pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
+  res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
+  colnames(res) <- c('Estimate', 'Std. Error', 't value', 'Pr(>|t|)')
+  res      <- as.data.frame(res)
+  cat("---------------------------------------------------------------\n")
+  cat(paste("Fixed effects for ",
+            pi.link, "(pi) \n", sep=''))
+  cat("---------------------------------------------------------------\n")
+  printCoefmat(res[1:p.pi,], P.value=TRUE, has.Pvalue=TRUE)
+  cat("---------------------------------------------------------------\n")
+  cat(paste("Fixed effects for ",
+            xi.link, "(xi) \n", sep=''))
+  cat("---------------------------------------------------------------\n")
+  printCoefmat(res[-(1:p.pi),], P.value=TRUE, has.Pvalue=TRUE)
+  cat("---------------------------------------------------------------\n")
+}
+#' 
+#' Bootstrap
+#' This function is used to obtain standard error for betas
+#' by bootstrap method.
+#' 
+boot.cub <- function(mod){
+  nboot <- 100
+  data <- mod$model
+  bs <- function(data, indices) update(mod, data=data[indices, ])$par
+  resul <- boot(data, statistic=bs, R=nboot)
+  return(apply(resul$t, 2, sd))
+}
 
 
 
