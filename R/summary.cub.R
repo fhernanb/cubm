@@ -58,7 +58,7 @@ summary.cub <- function(mod) {
 #' This function is used to print an object of class cub.
 #' 
 # print function ----------------------------------------------------------
-print.cub <- function(mod, ...)
+print.cub <- function(mod)
 {
   cat("Call:\n")
   print(mod$call)
@@ -75,8 +75,8 @@ print.cub <- function(mod, ...)
 #' by bootstrap method.
 #' 
 boot.cub <- function(mod, nboot=100){
-data <- mod$model
-bs <- function(data, indices) update(mod, data=data[indices, ])$par
-resul <- boot(data, statistic=bs, R=nboot)
-return(apply(resul$t, 2, sd))
+  data <- mod$model
+  bs <- function(data, indices) update(mod, data=data[indices, ])$par
+  resul <- boot(data, statistic=bs, R=nboot)
+  return(apply(resul$t, 2, sd))
 }
