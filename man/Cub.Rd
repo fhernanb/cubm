@@ -26,7 +26,7 @@ cub(pi.fo, xi.fo, m, data = NULL, subset = NULL, optimizer = "nlminb",
 
 \item{initial.values}{vector with the initial values to the searching procedure to nlminb and optim optimizers.}
 
-\item{...}{Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.}
+\item{...}{Further arguments to be passed to \code{\link[DEoptim]{DEoptim.control}}.}
 }
 \description{
 Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.

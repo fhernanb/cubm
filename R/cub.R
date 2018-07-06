@@ -11,7 +11,7 @@
 #' @param pi.link link function to use for model pi parameter, two options are available, logit or probit, by default is probit.
 #' @param xi.link link function to use for model xi parameter, two options are available, logit or probit, by default is probit.
 #' @param initial.values vector with the initial values to the searching procedure to nlminb and optim optimizers.
-#' @param ... Further arguments to be passed to \code{\link[DEoptim.control]{DEoptim.control}}.
+#' @param ... Further arguments to be passed to \code{\link[DEoptim]{DEoptim.control}}.
 #' 
 #' @examples
 #' 
