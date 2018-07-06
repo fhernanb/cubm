@@ -264,13 +264,13 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
 #' @export
 #' 
 # summary function --------------------------------------------------------
-summary.cub <- function(mod, ...) {
+summary.cub <- function(object, ...) {
   .myenv <- environment()
-  var.list <- as.list(mod)
+  var.list <- as.list(object)
   list2env(var.list , envir = .myenv)
-  estimate <- mod$par
+  estimate <- object$par
   elements <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
-  if (any(is.na(elements))) se <- boot.cub(mod=mod)
+  if (any(is.na(elements))) se <- boot.cub(object=object)
   else se <- sqrt(elements)
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
@@ -294,10 +294,10 @@ summary.cub <- function(mod, ...) {
 #' This function is used to obtain standard error for betas
 #' by bootstrap method.
 #' 
-boot.cub <- function(mod){
+boot.cub <- function(object){
   nboot <- 100
-  data <- mod$model
-  bs <- function(data, indices) update(mod, data=data[indices, ])$par
+  data <- object$model
+  bs <- function(data, indices) update(object, data=data[indices, ])$par
   resul <- boot(data, statistic=bs, R=nboot)
   return(apply(resul$t, 2, sd))
 }

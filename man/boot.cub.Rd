@@ -6,7 +6,7 @@
 This function is used to obtain standard error for betas
 by bootstrap method.}
 \usage{
-boot.cub(mod)
+boot.cub(object)
 }
 \description{
 Bootstrap
