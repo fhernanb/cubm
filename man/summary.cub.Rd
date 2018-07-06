@@ -15,12 +15,12 @@ summary method for class \code{"cub"}.
 \examples{
 # rcub.covariates is a function to generate a random sample from a cub model 
 # using covariates to model pi and xi and link function qnorm
-rcub.covariates <- function(n, b0, b1, g0, g1, m = 5, shift = 1) {
+rcub.covariates <- function(n, b0, b1, g0, g1, m = 5) {
   x1 <- runif(n)
   x2 <- runif(n)
   pi <- pnorm(b0 + b1 * x1)
   xi <- pnorm(g0 + g1 * x2)
-  y <- rcub(n = n, pi = pi, xi = xi, m = m, shift = shift)
+  y <- rcub(n=n, pi=pi, xi=xi, m=m)
   data.frame(y, x1, x2)
 }
 
