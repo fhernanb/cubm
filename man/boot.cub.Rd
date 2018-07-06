@@ -2,11 +2,14 @@
 % Please edit documentation in R/summary.cub.R
 \name{boot.cub}
 \alias{boot.cub}
-\title{Bootstrap}
+\title{Bootstrap
+This function is used to obtain standard error for betas
+by bootstrap method.}
 \usage{
 boot.cub(mod)
 }
 \description{
+Bootstrap
 This function is used to obtain standard error for betas
 by bootstrap method.
 }

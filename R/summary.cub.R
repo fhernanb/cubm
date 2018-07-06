@@ -54,23 +54,7 @@ summary.cub <- function(mod) {
   cat("---------------------------------------------------------------\n")
 }
 #' 
-#' Print cub class
-#' This function is used to print an object of class cub.
-#' 
-# print function ----------------------------------------------------------
-print.cub <- function(mod)
-{
-  cat("Call:\n")
-  print(mod$call)
-  cat("\n Results: \n")
-  cat("\n Estimated coefficients for g(pi): \n")
-  print(mod$par[1:mod$p.pi])
-  cat("\n Estimated coefficients for g(xi): \n")
-  print(mod$par[-(1:mod$p.pi)])
-}
-#'
 #' Bootstrap
-#' 
 #' This function is used to obtain standard error for betas
 #' by bootstrap method.
 #' 
