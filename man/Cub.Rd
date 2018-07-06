@@ -105,7 +105,7 @@ m <- 5
 # Simulating the dataset
 x1 <- runif(n)
 x2 <- runif(n)
-country <- sample(c('france', 'japan', 'usa'), size=n, replace=T)
+country <- sample(c('france', 'japan', 'usa'), size=n, replace=TRUE)
 aux <- model.matrix(~country)[, -1] \%*\% matrix(c(beta_japan,  beta_usa))
 pi <- pnorm(b0 + b1 * x1 + aux)
 xi <- pnorm(g0 + g1 * x2 + aux)
