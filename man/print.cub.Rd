@@ -5,7 +5,7 @@
 \title{Print cub class
 This function is used to print an object of class cub.}
 \usage{
-\method{print}{cub}(mod, ...)
+\method{print}{cub}(mod)
 }
 \description{
 Print cub class
