@@ -1,8 +1,8 @@
 #' summary.cub
 #' 
-#' Summarizes a cub model.
+#' summary method for class \code{"cub"}.
 #' 
-#' @param mod An object of class \code{cub}.
+#' @param mod An object of class \code{"cub"}.
 #' 
 #' @examples 
 #' # rcub.covariates is a function to generate a random sample from a cub model 
@@ -18,10 +18,13 @@
 #' 
 #' # Generating the data
 #' dataset <- rcub.covariates(n=1000, b0=-1, b1=1, g0=-2, g1=1.5)
+#' 
 #' # Fitting the model
 #' mod <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset, optimizer='nlminb')
 #' summary(mod)
 #' 
+#' @importFrom stats pnorm update
+#' @importFrom boot boot
 #' @export
 #' 
 # summary function --------------------------------------------------------
@@ -52,10 +55,7 @@ summary.cub <- function(mod) {
 }
 #' 
 #' Print cub class
-#' 
 #' This function is used to print an object of class cub.
-#' 
-#' @export
 #' 
 # print function ----------------------------------------------------------
 print.cub <- function(mod, ...)
@@ -74,11 +74,9 @@ print.cub <- function(mod, ...)
 #' This function is used to obtain standard error for betas
 #' by bootstrap method.
 #' 
-#' @export
-#' 
 boot.cub <- function(mod, nboot=100){
 data <- mod$model
 bs <- function(data, indices) update(mod, data=data[indices, ])$par
-resul <- boot::boot(data, statistic=bs, R=nboot)
+resul <- boot(data, statistic=bs, R=nboot)
 return(apply(resul$t, 2, sd))
 }
