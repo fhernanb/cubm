@@ -104,7 +104,7 @@
 #' summary(mod)
 #' 
 #' 
-#' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula
+#' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula sd printCoefmat
 #' @importFrom DEoptim DEoptim
 #' @export
 #' 
@@ -269,7 +269,7 @@ summary.cub <- function(object, ...) {
   var.list <- as.list(object)
   list2env(var.list , envir = .myenv)
   estimate <- object$par
-  elements <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
+  elements <- sqrt(diag(solve(object$Hessian))) # diagonal of Hessian^-1
   if (any(is.na(elements))) se <- boot_cub(object=object)
   else se <- sqrt(elements)
   zvalue   <- estimate / se
