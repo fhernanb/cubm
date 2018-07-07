@@ -121,7 +121,8 @@ cub <- function(pi.fo, xi.fo, m, data=NULL, subset=NULL,
   if (!is.null(subset)) data <- subset(data, eval(parse(text=subset)))
   
   matri <- model.matrix.cub(pi.fo, xi.fo, data)
-  res <- fit.cub(matri, m=m, optimizer, pi.link, xi.link,
+  res <- fit.cub(matri, m=m, optimizer=optimizer, 
+                 pi.link=pi.link, xi.link=xi.link,
                  initial.values, ...)
   res$pi.fo <- pi.fo
   res$xi.fo <- xi.fo
@@ -277,14 +278,15 @@ summary.cub <- function(object, ...) {
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
   colnames(res) <- c('Estimate', 'Std. Error', 't value', 'Pr(>|t|)')
   res      <- as.data.frame(res)
+  p.pi <- object$p.pi
   cat("---------------------------------------------------------------\n")
   cat(paste("Fixed effects for ",
-            pi.link, "(pi) \n", sep=''))
+            object$pi.link, "(pi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
   printCoefmat(res[1:p.pi,], P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
   cat(paste("Fixed effects for ",
-            xi.link, "(xi) \n", sep=''))
+            object$xi.link, "(xi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
   printCoefmat(res[-(1:p.pi),], P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
