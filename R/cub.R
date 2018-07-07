@@ -281,12 +281,12 @@ summary.cub <- function(object, ...) {
   cat(paste("Fixed effects for ",
             pi.link, "(pi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
-  printCoefmat(res[1:p.pi,], P.value=TRUE, has.Pvalue=TRUE)
+  printCoefmat(res[1:p.pi,], P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
   cat(paste("Fixed effects for ",
             xi.link, "(xi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
-  printCoefmat(res[-(1:p.pi),], P.value=TRUE, has.Pvalue=TRUE)
+  printCoefmat(res[-(1:p.pi),], P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
 }
 #' 
