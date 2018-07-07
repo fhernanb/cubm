@@ -33,7 +33,6 @@ cub(pi.fo, xi.fo, m, data = NULL, subset = NULL, optimizer = "nlminb",
 Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
 }
 \examples{
-
 # Test 1 ------------------------------------------------------------------
 # Generating a random sample given the values of pi and xi
 set.seed(123)
@@ -119,6 +118,5 @@ mod <- cub(pi.fo = y ~ x1 + country,
            xi.fo = ~ x2 + country, m=5, data=dataset,
            optimizer='optim')
 summary(mod)
-
 
 }

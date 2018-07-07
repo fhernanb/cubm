@@ -16,7 +16,6 @@
 #' @param ... Further arguments to be passed to \code{\link[DEoptim]{DEoptim.control}}.
 #' 
 #' @examples
-#' 
 #' # Test 1 ------------------------------------------------------------------
 #' # Generating a random sample given the values of pi and xi
 #' set.seed(123)
@@ -102,7 +101,6 @@
 #'            xi.fo = ~ x2 + country, m=5, data=dataset,
 #'            optimizer='optim')
 #' summary(mod)
-#' 
 #' 
 #' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula sd printCoefmat
 #' @importFrom DEoptim DEoptim
@@ -304,14 +302,14 @@ boot_cub <- function(object){
 # ---------------------  print function ---------------------------
 # -----------------------------------------------------------------
 #' @export
-print.cub <- function(object, ...) {
+print.cub <- function(x, ...) {
   cat("Call:\n")
-  print(object$call)
+  print(x$call)
   cat("\n Results: \n")
   cat("\n Estimated coefficients for g(pi): \n")
-  print(object$par[1:object$p.pi])
+  print(x$par[1:x$p.pi])
   cat("\n Estimated coefficients for g(xi): \n")
-  print(object$par[-(1:object$p.pi)])
+  print(x$par[-(1:x$p.pi)])
 }
 
 
