@@ -264,7 +264,6 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
 #' @importFrom boot boot
 #' @export
 #' 
-# summary function --------------------------------------------------------
 summary.cub <- function(object, ...) {
   .myenv <- environment()
   var.list <- as.list(object)
@@ -291,7 +290,6 @@ summary.cub <- function(object, ...) {
   printCoefmat(res[-(1:p.pi),], P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
 }
-#' 
 # Bootstrap
 # This function is used to obtain standard error for betas
 # by bootstrap method.
@@ -306,10 +304,7 @@ boot_cub <- function(object){
 # ---------------------  print function ---------------------------
 # -----------------------------------------------------------------
 #' @export
-# Print cub class
-# This function is used to print an object of class cub.
-print.cub <- function(object, ...)
-{
+print.cub <- function(object, ...) {
   cat("Call:\n")
   print(object$call)
   cat("\n Results: \n")
