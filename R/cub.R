@@ -302,7 +302,21 @@ boot_cub <- function(object){
   resul <- boot(data, statistic=bs, R=nboot)
   return(apply(resul$t, 2, sd))
 }
-
-
+# -----------------------------------------------------------------
+# ---------------------  print function ---------------------------
+# -----------------------------------------------------------------
+#' @export
+# Print cub class
+# This function is used to print an object of class cub.
+print.cub <- function(object, ...)
+{
+  cat("Call:\n")
+  print(object$call)
+  cat("\n Results: \n")
+  cat("\n Estimated coefficients for g(pi): \n")
+  print(object$par[1:object$p.pi])
+  cat("\n Estimated coefficients for g(xi): \n")
+  print(object$par[-(1:object$p.pi)])
+}
 
 
