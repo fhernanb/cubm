@@ -13,7 +13,6 @@ Diss(mod)
 This function generates the Diss coefficient, the difference between observed relative frequencies and estimated (theoretical) probabilities.
 }
 \examples{
-
 # Test 1 
 y <- rcub(n=800, pi=0.30, xi=0.80, m=6)
 fit1 <- cub(pi.fo=y ~ 1, xi.fo= ~ 1, m=6)
