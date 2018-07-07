@@ -31,7 +31,7 @@
 #' 
 #' # Examples with qcub
 #' 
-#' #' # low xi is associated with high ratings
+#' # low xi is associated with high ratings
 #' qcub(p=0.1, pi=0.5, xi=0.1, m=7, lower.tail=TRUE)
 #' 
 #' # high pi is associated with indecision in choosing
@@ -41,7 +41,7 @@
 #' qcub(p=c(1,0.5,0.9), pi=0.3, xi=0.6, m=5)
 #' 
 #' # Examples with rcub
-#' #' # Random sample, low xi is associated with high ratings
+#' # Random sample, low xi is associated with high ratings
 #' x <- rcub(n=1000, pi=0.9, xi=0.1, m=5)
 #' barplot(prop.table(table(x)))
 #' 
