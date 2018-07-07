@@ -156,63 +156,63 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
 # fit.cub -----------------------------------------------------------------
 fit.cub <- function(matri, m, optimizer, pi.link, xi.link,
                     initial.values, ...) {
-  p.pi <- ncol(matri$mat.pi)  # Number of pi parameters
-  p.xi <- ncol(matri$mat.xi)  # Number of xi parameters
-  X.pi <- matri$mat.pi  # Model matrix to pi
-  X.xi <- matri$mat.xi  # Model matrix to xi
-  y <- matri$y  # Response variable
-  names.pi <- colnames(matri$mat.pi)
-  names.xi <- colnames(matri$mat.xi)
-  if (is.null(initial.values) | length(initial.values) != (p.pi+p.xi))
-    initial.values <- rep(0, p.pi+p.xi)
-  
-  if (optimizer == 'nlminb') {
-    nlminbcontrol <- list(...)
-    fit <- nlminb(start=initial.values, objective=llcub,
-                  y=y, M=m, X.pi=X.pi, X.xi=X.xi,
-                  pi.link=pi.link, xi.link=xi.link,
-                  control=nlminbcontrol)
-    fit$objective <- -fit$objective
-  }
-  
-  if (optimizer == 'optim') {
-    optimcontrol <- list(...)
-    fit <- optim(par=initial.values, fn=llcub,
-                 y=y, M=m, X.pi=X.pi, X.xi=X.xi,
-                 pi.link=pi.link, xi.link=xi.link,
-                 control=optimcontrol)
-    fit$objective <- -fit$value
-  }
-  
-  if (optimizer == 'DEoptim') {
-    DEcontrol <- list(...)
-    fit <- DEoptim(fn=llcub,
-                   lower=rep(-10, p.pi+p.xi),
-                   upper=rep( 10, p.pi+p.xi),
-                   control=DEcontrol,
-                   y, m, X.pi, X.xi,
-                   pi.link, xi.link)
-    fit$par <- fit$optim$bestmem
-    fit$objective <- -fit$optim$bestval
-  }
-  
-# Unifying the results
-names(fit$par) <- c(names.pi, names.xi)
-# Obtaining fitted pi and xi
-fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
-fit$fitted.xi <- fitted.xi(p.pi, p.xi, xi.link, X.pi, X.xi, fit)
-# Obtaining the hessian
-fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
-                                 method='Richardson',
-                                 y=y, M=m,
-                                 X.pi=X.pi, X.xi=X.xi)
-inputs <- list(y=y, M=m, log=TRUE, p.pi=p.pi, p.xi=p.xi,
-               n=length(y), 
-               X.pi=X.pi,
-               X.xi=X.xi,
-               pi.link=pi.link,
-               xi.link=xi.link)
-fit <- c(fit, inputs)
+    p.pi <- ncol(matri$mat.pi)  # Number of pi parameters
+    p.xi <- ncol(matri$mat.xi)  # Number of xi parameters
+    X.pi <- matri$mat.pi  # Model matrix to pi
+    X.xi <- matri$mat.xi  # Model matrix to xi
+    y <- matri$y  # Response variable
+    names.pi <- colnames(matri$mat.pi)
+    names.xi <- colnames(matri$mat.xi)
+    if (is.null(initial.values) | length(initial.values) != (p.pi+p.xi))
+      initial.values <- rep(0, p.pi+p.xi)
+    
+    if (optimizer == 'nlminb') {
+      nlminbcontrol <- list(...)
+      fit <- nlminb(start=initial.values, objective=llcub,
+                    y=y, M=m, X.pi=X.pi, X.xi=X.xi,
+                    pi.link=pi.link, xi.link=xi.link,
+                    control=nlminbcontrol)
+      fit$objective <- -fit$objective
+    }
+    
+    if (optimizer == 'optim') {
+      optimcontrol <- list(...)
+      fit <- optim(par=initial.values, fn=llcub,
+                   y=y, M=m, X.pi=X.pi, X.xi=X.xi,
+                   pi.link=pi.link, xi.link=xi.link,
+                   control=optimcontrol)
+      fit$objective <- -fit$value
+    }
+    
+    if (optimizer == 'DEoptim') {
+      DEcontrol <- list(...)
+      fit <- DEoptim(fn=llcub,
+                     lower=rep(-10, p.pi+p.xi),
+                     upper=rep( 10, p.pi+p.xi),
+                     control=DEcontrol,
+                     y, m, X.pi, X.xi,
+                     pi.link, xi.link)
+      fit$par <- fit$optim$bestmem
+      fit$objective <- -fit$optim$bestval
+    }
+    
+  # Unifying the results
+  names(fit$par) <- c(names.pi, names.xi)
+  # Obtaining fitted pi and xi
+  fit$fitted.pi <- fitted.pi(p.pi, p.xi, pi.link, X.pi, X.xi, fit)
+  fit$fitted.xi <- fitted.xi(p.pi, p.xi, xi.link, X.pi, X.xi, fit)
+  # Obtaining the hessian
+  fit$Hessian <- numDeriv::hessian(func=llcub, x=fit$par,
+                                   method='Richardson',
+                                   y=y, M=m,
+                                   X.pi=X.pi, X.xi=X.xi)
+  inputs <- list(y=y, M=m, log=TRUE, p.pi=p.pi, p.xi=p.xi,
+                 n=length(y), 
+                 X.pi=X.pi,
+                 X.xi=X.xi,
+                 pi.link=pi.link,
+                 xi.link=xi.link)
+  fit <- c(fit, inputs)
 }
 #'
 # llcub -------------------------------------------------------------------
@@ -270,7 +270,7 @@ summary.cub <- function(object, ...) {
   list2env(var.list , envir = .myenv)
   estimate <- object$par
   elements <- sqrt(diag(solve(Hessian))) # diagonal of Hessian^-1
-  if (any(is.na(elements))) se <- boot.cub(object=object)
+  if (any(is.na(elements))) se <- boot_cub(object=object)
   else se <- sqrt(elements)
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
@@ -290,11 +290,10 @@ summary.cub <- function(object, ...) {
   cat("---------------------------------------------------------------\n")
 }
 #' 
-#' Bootstrap
-#' This function is used to obtain standard error for betas
-#' by bootstrap method.
-#' 
-boot.cub <- function(object){
+# Bootstrap
+# This function is used to obtain standard error for betas
+# by bootstrap method.
+boot_cub <- function(object){
   nboot <- 100
   data <- object$model
   bs <- function(data, indices) update(object, data=data[indices, ])$par
