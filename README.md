@@ -1,4 +1,4 @@
- cubm <img src="man/figures/logo.png" align="right" height="120" width="120"/>
+ cubm <img src="man/figures/logo.png" align="right" height="200" align="right"/>
 ======================
 
 [![Travis build status](https://travis-ci.org/fhernanb/cubm.svg?branch=master)](https://travis-ci.org/fhernanb/cubm)
