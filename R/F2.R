@@ -13,8 +13,8 @@
 #' 
 #' # Example 2
 #' # Este ejemplo no funciona porque no se tiene la base de datos data
-#' #fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
-#' #F2(fit)
+#' # fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
+#' # F2(fit)
 #'
 #' # Example 3 
 #' # Simulating a dataset with qualitative variables
