@@ -19,9 +19,10 @@ y <- rcub(n=1000, pi=0.15, xi=0.60, m=8)
 mod <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=8)
 F2(mod)
 
-# Example 2 
-fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
-F2(fit)
+# Example 2
+# Este ejemplo no funciona porque no se tiene la base de datos data
+#fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
+#F2(fit)
 
 # Example 3 
 # Simulating a dataset with qualitative variables
