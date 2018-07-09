@@ -38,3 +38,25 @@
 #' }
 #' @source \url{https://cran.r-project.org/web/packages/CUB/CUB.pdf}
 "univer"
+
+
+
+#' @title Mis datos de prueba
+#' @description Estos son unos datos de prueba para Deisy.
+#' @aliases misdatos
+#' @usage data(misdatos)
+#' @format The description of subjects' covariates is:
+#' \describe{
+#' \item{\code{estatura}}{la estatura de las personas en metros}
+#' \item{\code{peso}}{el peso corporal en kilogramos}
+#'	}
+#' @keywords datasets
+#' @details 
+#' \describe{
+#' Period of data collection: 2002 \cr
+#' Mode of collection: questionnaire \cr
+#' Number of observations: 2179 \cr
+#' Number of subjects' covariates: 7 \cr
+#' Number of analyzed items: 5
+#' }
+"univer"

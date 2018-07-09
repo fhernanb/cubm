@@ -3,6 +3,8 @@
 \docType{data}
 \name{univer}
 \alias{univer}
+\alias{univer}
+\alias{misdatos}
 \title{Evaluation of the Orientation Services 2002}
 \format{The description of subjects' covariates is:
 \describe{
@@ -31,14 +33,26 @@ Analyzed ordinal variables (Likert ordinal scale):
 }
 \usage{
 data(univer)
+
+data(misdatos)
 }
 \description{
 A sample survey on students evaluation of the Orientation services was conducted across the
 13 Faculties of University of Naples  Federico II in five waves: participants were asked to express their ratings
  on a 7 point scale (1 = "very unsatisfied", 7 = "extremely satisfied").
 Here  dataset collected during 2002 is loaded.
+
+Estos son unos datos de prueba para Deisy.
 }
 \details{
+\describe{
+Period of data collection: 2002 \cr
+Mode of collection: questionnaire \cr
+Number of observations: 2179 \cr
+Number of subjects' covariates: 7 \cr
+Number of analyzed items: 5
+}
+
 \describe{
 Period of data collection: 2002 \cr
 Mode of collection: questionnaire \cr
