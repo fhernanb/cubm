@@ -269,7 +269,7 @@ summary.cub <- function(object, ...) {
   estimate <- object$par
   elements <- sqrt(diag(solve(object$Hessian))) # diagonal of Hessian^-1
   if (any(is.na(elements))) se <- boot_cub(object=object)
-  #else se <- sqrt(elements)
+  else se <- elements
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
