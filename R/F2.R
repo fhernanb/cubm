@@ -1,20 +1,19 @@
 #' F2 coefficient for cub model  
 #' 
-#' This function generates the F2 coefficient.
+#' This function generates the F2 coefficient, difference 1 and Diss.
 #'
-#' @param mod object of class \code{"cub"}.
+#' @param mod object of cub class
 #'
 #' @examples 
-#' # Example 1 
-#' # Generating a random sample given the values of pi and xi
-#' y <- rcub(n=1000, pi=0.15, xi=0.60, m=8)
-#' mod <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=8)
-#' F2(mod)
+#' #' # Example 1 
+#' #' # Generating a random sample given the values of pi and xi
+#' #' y <- rcub(n = 1000, pi = 0.15, xi = 0.60, m = 8)
+#' #' mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 8, shift = 1)
+#' #' F2(mod)
 #' 
-#' # Example 2
-#' # Este ejemplo no funciona porque no se tiene la base de datos data
-#' # fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
-#' # F2(fit)
+#' # Example 2 
+#' fit <- cub(pi.fo = global ~ lage, xi.fo = ~ lage,  m = 7, data = univer)
+#' F2(fit)
 #'
 #' # Example 3 
 #' # Simulating a dataset with qualitative variables
@@ -47,54 +46,19 @@
 #'            optimizer='optim')
 #' F2(mod)
 #' 
-#' @importFrom stats pnorm
 #' @export
-F2 <- function (mod) {
+F2 <- function (mod){ 
   if (class(mod) != 'cub') 
     stop(paste("The object must be of class cub", "\n", ""))
-  # Funcion auxiliar
-  ccalc <- function(para) {
-    para1 <- apply(para, 1, paux)
-    para2 <- apply(para1, 2, which.max)
-    para3 <- table(para2)
-    para4 <- sapply(1:length(fr), function(x) sum(para2[para2 == x]))
-    para4[which(para4 != 0)] <- as.vector(prop.table(para3))
-    return(para4)
+  fr <- prop.table(table(mod$y))
+  if (mod$p.pi == 1 && mod$p.xi == 1)
+    p <- dcub(x = 1:mod$M, pi = mod$fitted.pi, xi = mod$fitted.xi, m = mod$M)
+  else {
+    aux.mat <- cbind(pi = mod$fitted.pi, xi = mod$fitted.xi, m = mod$M)
+    myfun <- function(x) dcub(x=1:x[3], m=x[3], pi=x[1], xi=x[2])
+    PRr <- t(apply(aux.mat, 1, myfun))
+    p <- colSums(PRr) / mod$n
   }
-  
-  fr <- table(mod$y)/length(mod$y) 
-  fr <- as.vector(fr)
-  # Funcion auxiliar
-  paux <- function(x) {
-    dcub(x = 1:x[3], m = x[3], pi = x[1], xi = x[2])
-  }
-  if (mod$p.pi != 1 && mod$p.xi != 1) {
-    para <- cbind(mod$fitted.pi, mod$fitted.xi, mod$M)
-    p <- ccalc(para)
-  }
-  else if (mod$p.pi == 1 && mod$p.xi != 1 && mod$pi.link == 'probit')
-  {pi = pnorm(mod$par)[1]
-  para <- cbind(pi, mod$fitted.xi, mod$M)
-  p <- ccalc(para)}
-  else if (mod$p.pi != 1 && mod$p.xi == 1 && mod$pi.link == 'probit')
-  {xi = pnorm(mod$par)[2]
-  para <- cbind(mod$fitted.pi, xi, mod$M)
-  p <- ccalc(para)}
-  else if (mod$p.pi == 1 && mod$p.xi != 1 && mod$pi.link == 'logit')
-  {pi = 1/(1 + exp(-mod$par[1]))
-  para <- cbind(pi, mod$fitted.xi, mod$M)
-  p <- ccalc(para)}
-  else if (mod$p.pi != 1 && mod$p.xi == 1 && mod$pi.link == 'logit')
-  {xi = 1/(1 + exp(-mod$par[2]))
-  para <- cbind(mod$fitted.pi, xi, mod$M)
-  p <- ccalc(para)}
-  else if (mod$p.pi == 1 && mod$p.xi == 1 && mod$pi.link == 'probit')
-    p <- dcub(pi = pnorm(mod$par)[1], xi = pnorm(mod$par)[2], 
-              x = 1:mod$M, m = mod$M) 
-  else 
-    p <- dcub(pi = 1/(1 + exp(-mod$par[1])), xi = 1/(1 + exp(-mod$par[2])), 
-              x = 1:mod$M, m = mod$M) 
-  F2 <- 1-(0.5 * sum(abs(fr - p)))
+  F2 <- 1-(0.5*sum(abs(fr - p)))
   return(F2)
 }
-

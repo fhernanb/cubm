@@ -7,22 +7,21 @@
 F2(mod)
 }
 \arguments{
-\item{mod}{object of class \code{"cub"}.}
+\item{mod}{object of cub class}
 }
 \description{
-This function generates the F2 coefficient.
+This function generates the F2 coefficient, difference 1 and Diss.
 }
 \examples{
-# Example 1 
-# Generating a random sample given the values of pi and xi
-y <- rcub(n=1000, pi=0.15, xi=0.60, m=8)
-mod <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=8)
-F2(mod)
+#' # Example 1 
+#' # Generating a random sample given the values of pi and xi
+#' y <- rcub(n = 1000, pi = 0.15, xi = 0.60, m = 8)
+#' mod <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 8, shift = 1)
+#' F2(mod)
 
-# Example 2
-# Este ejemplo no funciona porque no se tiene la base de datos data
-# fit <- cub(pi.fo=usecondom ~ gender, xi.fo = ~ gender, m=4, data=data)
-# F2(fit)
+# Example 2 
+fit <- cub(pi.fo = global ~ lage, xi.fo = ~ lage,  m = 7, data = univer)
+F2(fit)
 
 # Example 3 
 # Simulating a dataset with qualitative variables
