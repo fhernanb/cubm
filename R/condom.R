@@ -1,7 +1,8 @@
-#' Frequency of condom use in 2013
+#' @title Frequency of condom use in 2013
 #' 
-#' A dataset containing the frequency of condom use in Medellin in 2013.
-#' 
+#' @description A dataset containing the frequency of condom use in Medellin in 2013.
+#' @aliases condom
+#' @usage data(condom)
 #' @format A data frame with 153 rows and 4 variables:
 #' \describe{
 #'   \item{age}{age, in years}

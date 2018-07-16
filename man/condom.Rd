@@ -12,7 +12,7 @@
   \item{usecondom}{A factor with levels: 1 = always, 2 = frequently, 3 = occasionally and 4 = never}
 }}
 \usage{
-condom
+data(condom)
 }
 \description{
 A dataset containing the frequency of condom use in Medellin in 2013.
