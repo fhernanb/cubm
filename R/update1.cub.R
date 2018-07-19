@@ -11,14 +11,15 @@
 #' mod1 <- cub(pi.fo = global ~ 1, xi.fo = ~ 1, m=7, data=univer)
 #' mod1
 #' # Modifying right sides of pi and xi formulas
-#' update2.cub(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
+#' update1(mod1, pi.fo = global ~ gender, xi.fo = ~ lage + gender)
 #' 
 #' # Modifying the dataset
-#' update2.cub(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
+#' update1(mod1, xi.fo = ~ 1, m=7, data=univer[1:50, ])
 #'
+#' @importFrom stats getCall
 #' @export
 #' 
-update2.cub <- function(object, ..., evaluate=TRUE) {
+update1 <- function(object, ..., evaluate=TRUE) {
   if (is.null(call <- getCall(object))) 
     stop("need an object with call component")
   extras <- match.call(expand.dots = FALSE)$...
