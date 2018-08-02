@@ -274,18 +274,22 @@ summary.cub <- function(object, ...) {
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
   colnames(res) <- c('Estimate', 'Std. Error', 't value', 'Pr(>|t|)')
-  res      <- as.data.frame(res)
+  res      <- data.frame(res)
+  res.pi <- res[1:p.pi,]
+  res.xi <- res[-(1:p.pi),]
+  rownames(res.pi) <- names(object$par)[1:p.pi]
+  rownames(res.xi) <- names(object$par)[-(1:p.pi)]
   p.pi <- object$p.pi
   cat("---------------------------------------------------------------\n")
   cat(paste("Fixed effects for ",
             object$pi.link, "(pi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
-  printCoefmat(res[1:p.pi,], P.values=TRUE, has.Pvalue=TRUE)
+  printCoefmat(res.pi, P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
   cat(paste("Fixed effects for ",
             object$xi.link, "(xi) \n", sep=''))
   cat("---------------------------------------------------------------\n")
-  printCoefmat(res[-(1:p.pi),], P.values=TRUE, has.Pvalue=TRUE)
+  printCoefmat(res.xi, P.values=TRUE, has.Pvalue=TRUE)
   cat("---------------------------------------------------------------\n")
 }
 # Bootstrap
