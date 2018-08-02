@@ -20,7 +20,7 @@
 #' # Generating a random sample given the values of pi and xi
 #' set.seed(123)
 #' y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
-#' mod1 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, optimizer='nlminb')
+#' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
 #' # Summary table
 #' summary(mod1)
 #' # To obtain the fitted parameters in the appropiate scale
@@ -28,7 +28,7 @@
 #' pnorm(mod1$par)
 #' 
 #' # Using logit link function
-#' mod2 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5, optimizer='nlminb',
+#' mod2 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb',
 #'             pi.link='logit', xi.link='logit')
 #' # Summary table
 #' summary(mod2)
@@ -37,7 +37,7 @@
 #' 1 / (1 + exp(-mod2$par))
 #' 
 #' # Using DEoptim optimizer, it is slower but it gives good results
-#' mod3 <- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m=5,
+#' mod3 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5,
 #'             optimizer='DEoptim', trace=50, itermax=300)
 #' # Summary table
 #' summary(mod3)
@@ -52,7 +52,7 @@
 #'   x2 <- runif(n)
 #'   pi <- pnorm(b0 + b1 * x1)
 #'   xi <- pnorm(g0 + g1 * x2)
-#'   y <- rcub(n = n, pi = pi, xi = xi, m = m)
+#'   y <- rcub(n=n, pi=pi, xi=xi, m=m)
 #'   data.frame(y, x1, x2, xi, pi)
 #' }
 #' 
@@ -60,12 +60,12 @@
 #' dataset <- rcub.covariates(n=1000, b0=-1, b1=1, g0=-2, g1=1.5)
 #' 
 #' # Fitting the model with optim optimizer
-#' fit1 <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset,
+#' fit1 <- cub(pi.fo=y ~ x1, xi.fo= ~ x2, m=5, data=dataset,
 #'             optimizer='optim')
 #' summary(fit1)
 #' 
 #' # Fitting the model with DEoptim optimizer
-#' fit2 <- cub(pi.fo = y ~ x1, xi.fo = ~ x2, m=5, data=dataset,
+#' fit2 <- cub(pi.fo=y ~ x1, xi.fo=~ x2, m=5, data=dataset,
 #'             optimizer='DEoptim', trace=0, itermax=300)
 #' summary(fit2)
 #' 
@@ -92,13 +92,13 @@
 #' aux <- model.matrix(~country)[, -1] %*% matrix(c(beta_japan,  beta_usa))
 #' pi <- pnorm(b0 + b1 * x1 + aux)
 #' xi <- pnorm(g0 + g1 * x2 + aux)
-#' y <- rcub(n = n, pi = pi, xi = xi, m = m)
+#' y <- rcub(n=n, pi=pi, xi=xi, m=m)
 #' # Dataset
 #' dataset <- data.frame(y, x1, x2, country)
 #' 
 #' # Fitting the model
-#' mod <- cub(pi.fo = y ~ x1 + country,
-#'            xi.fo = ~ x2 + country, m=5, data=dataset,
+#' mod <- cub(pi.fo=y ~ x1 + country,
+#'            xi.fo=~ x2 + country, m=5, data=dataset,
 #'            optimizer='optim')
 #' summary(mod)
 #' 
@@ -273,7 +273,7 @@ summary.cub <- function(object, ...) {
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
-  colnames(res) <- c('Estimate', 'Std. Error', 't value', 'Pr(>|t|)')
+  colnames(res) <- c('Estimate', 'Std. Error', 'z value', 'Pr(>|z|)')
   res      <- data.frame(res)
   res.pi <- res[1:p.pi,]
   res.xi <- res[-(1:p.pi),]
