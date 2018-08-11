@@ -71,8 +71,6 @@ dcub <-function(x, pi, xi, m, log=FALSE) {
 #' @rdname cub_dist
 #' @export
 pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) {
-  if(any(q %% 1 != 0))
-    stop(paste("q must be an integer number", "\n", ""))
   if (any(m <= 1)) 
     stop("m parameter must be greater than 1", "\n", "")
   if (any(pi <= 0 | pi > 1)) 
@@ -104,7 +102,7 @@ qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE) {
   if (any(xi < 0 | xi > 1)) 
     stop(paste("xi must be in [0, 1]", "\n", ""))
   
-  prob <- cumsum(apply(as.matrix(1:m, ncol = m, nrow = 1), 
+  prob <- cumsum(apply(as.matrix(1:m, ncol=m, nrow=1), 
                        1, dcub, pi, xi, m))
   l <- sapply(p, function(x) sum(x > prob))
   l <- replace(l, l==0, 1)
