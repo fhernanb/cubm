@@ -12,9 +12,9 @@ abline(h=0.55, col='green')
 abline(h=0.78, col='purple')
 
 # con cub
-pi <- 0.2
-xi <- 0.6
-m <- 5
+pi <- 0.7
+xi <- 0.1
+m <- 10
 
 x <- seq(-2, m+2, 0.01)
 plot(x, pcub(x, pi=pi, xi=xi, m=m), type="s", ylab="F(x)", 
@@ -33,6 +33,6 @@ aux <- function(p, pi, xi, m) {
 aux <- Vectorize(aux)
 
 aux(p=miscuantiles, pi, xi, m)
-qcub(p=miscuantiles, pi=0.2, xi=0.6, m=5) # no está correcto
+qcub(p=miscuantiles, pi=pi, xi=xi, m=m) # ahora si esta correcto
 
 cbind(miscuantiles, aux(p=miscuantiles, pi, xi, m))

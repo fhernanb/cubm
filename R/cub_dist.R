@@ -109,7 +109,7 @@ qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE) {
   }
   aux <- Vectorize(aux)
   # End of auxiliar function --------
-  r <- aux(p=miscuantiles, pi, xi, m)
+  r <- aux(p=p, pi=pi, xi=xi, m=m)
   r
 } 
 #' @rdname cub_dist
