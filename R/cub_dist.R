@@ -54,9 +54,7 @@ NULL
 #' @rdname cub_dist
 #' @importFrom stats dbinom
 #' @export
-dcub <-function(x, pi, xi, m, log = FALSE) {
-  if (any(x <= 0))
-    stop(paste("x must be positive", "\n", ""))
+dcub <-function(x, pi, xi, m, log=FALSE) {
   if(any(x %% 1 != 0))
     stop(paste("x must be an integer number", "\n", ""))
   if (any(m <= 0)) 
@@ -66,6 +64,7 @@ dcub <-function(x, pi, xi, m, log = FALSE) {
   if (any(xi < 0 | xi > 1)) 
     stop(paste("xi must be in [0, 1]", "\n", ""))
   dens <- log(pi * dbinom(x=x-1, size=m-1, prob=1-xi) + (1 - pi) / m)
+  dens[x <= 0 | x > m] <- -Inf
   if (log == FALSE) dens <- exp(dens)
   return(dens)
 }
