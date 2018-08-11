@@ -70,8 +70,7 @@ dcub <-function(x, pi, xi, m, log=FALSE) {
 }
 #' @rdname cub_dist
 #' @export
-pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) 
-{
+pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) {
   if(any(q %% 1 != 0))
     stop(paste("q must be an integer number", "\n", ""))
   if (any(m <= 1)) 
@@ -91,8 +90,7 @@ pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE)
 }
 #' @rdname cub_dist
 #' @export
-qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE)
-{
+qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE) {
   if (any(p < 0 | p > 1)) 
     stop(paste("p must be in [0,1]", "\n", ""))
   if (any(m <= 1)) 
@@ -118,7 +116,7 @@ qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE)
 #' @rdname cub_dist
 #' @importFrom stats rbinom runif
 #' @export
-rcub <- function(n, pi, xi, m = 5) {
+rcub <- function(n, pi, xi, m=5) {
   if (any(pi <= 0 | pi >1)) 
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
