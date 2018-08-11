@@ -84,7 +84,7 @@ pcub <- function(q, pi, xi, m, lower.tail=TRUE, log=FALSE) {
     sum(prob)
   }
   aux <- Vectorize(aux)
-  # End of auxiliar function
+  # End of auxiliar function --------
   p <- aux(q=q, pi=pi, xi=xi, m=m)
   if (lower.tail == FALSE) p <- 1-p
   if (log) p <- log(p)
@@ -101,19 +101,16 @@ qcub <- function(p, pi, xi, m, lower.tail=TRUE, log=FALSE) {
     stop(paste("pi must be in (0,1]", "\n", ""))
   if (any(xi < 0 | xi > 1)) 
     stop(paste("xi must be in [0, 1]", "\n", ""))
-  
-  prob <- cumsum(apply(as.matrix(1:m, ncol=m, nrow=1), 
-                       1, dcub, pi, xi, m))
-  l <- sapply(p, function(x) sum(x > prob))
-  l <- replace(l, l==0, 1)
-  la <- cbind(prob[l], prob[l+1])
-  la[is.na(la)] <- m
-  med <- apply(la, 1, mean)
-  med[is.na(med)] <- m 
-  r <- ifelse (p < med-0.0001, l, l+1)
-  if (lower.tail == TRUE)
-    r
-  else m-r
+  if (lower.tail == FALSE) p <- 1 - p
+  # This is an auxiliar function -----------  
+  aux <- function(p, pi, xi, m) {
+    cdf <- pcub(q=0:(m+1), pi=pi, xi=xi, m=m)
+    findInterval(p, cdf)
+  }
+  aux <- Vectorize(aux)
+  # End of auxiliar function --------
+  r <- aux(p=miscuantiles, pi, xi, m)
+  r
 } 
 #' @rdname cub_dist
 #' @importFrom stats rbinom runif
