@@ -273,8 +273,8 @@ summary.cub <- function(object, ...) {
   zvalue   <- estimate / se
   pvalue   <- 2 * pnorm(abs(zvalue), lower.tail=F)
   res      <- cbind(estimate=estimate, se=se, zvalue=zvalue, pvalue=pvalue)
-  colnames(res) <- c('Estimate', 'Std. Error', 'z value', 'Pr(>|z|)')
   res      <- data.frame(res)
+  colnames(res) <- c('Estimate', 'Std. Error', 'z value', 'Pr(>|t|)')
   res.pi <- res[1:p.pi,]
   res.xi <- res[-(1:p.pi),]
   rownames(res.pi) <- names(object$par)[1:p.pi]
