@@ -1,4 +1,4 @@
-#' cub
+#' @title cub
 #' 
 #' Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
 #' 

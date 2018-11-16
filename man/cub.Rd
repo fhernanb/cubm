@@ -3,7 +3,9 @@
 \name{cub}
 \alias{cub}
 \alias{summary.cub}
-\title{cub}
+\title{cub
+
+Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.}
 \usage{
 cub(pi.fo, xi.fo, m, data = NULL, subset = NULL,
   optimizer = "nlminb", pi.link = "probit", xi.link = "probit",
@@ -31,6 +33,8 @@ cub(pi.fo, xi.fo, m, data = NULL, subset = NULL,
 \item{...}{Further arguments to be passed to \code{\link[DEoptim]{DEoptim.control}}.}
 }
 \description{
+cub
+
 Function to fit a cub model. The structure can have covariates or not to model \eqn{\pi} and \eqn{\xi} parameters.
 }
 \examples{
