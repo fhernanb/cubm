@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cub — cub • cubm</title>
+<title>cub
+
+Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters. — cub • cubm</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +32,12 @@
 
 
 
-<meta property="og:title" content="cub — cub" />
+<meta property="og:title" content="cub
 
-<meta property="og:description" content="Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters." />
+Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters. — cub" />
+
+<meta property="og:description" content="cub
+Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -99,14 +104,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cub</h1>
+    <h1>cub
+
+Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters.</h1>
     <small class="dont-index">Source: <a href='https://github.com/fhernanb/cubm/blob/master/R/cub.R'><code>R/cub.R</code></a></small>
     <div class="hidden name"><code>cub.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters.</p>
+    <p>cub</p>
+<p>Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters.</p>
     
     </div>
 
@@ -165,21 +173,21 @@
 <span class='co'># Generating a random sample given the values of pi and xi</span>
 <span class='fu'>set.seed</span>(<span class='fl'>123</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub_dist.html'>rcub</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1000</span>, <span class='kw'>pi</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>xi</span><span class='kw'>=</span><span class='fl'>0.60</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>)
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): object 'y' not found</span></div><div class='input'><span class='co'># Summary table</span>
-<span class='fu'>summary</span>(<span class='no'>mod1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod1): object 'mod1' not found</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale</span>
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
+<span class='fu'>summary</span>(<span class='no'>mod1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod1): objeto 'mod1' no encontrado</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale</span>
 <span class='co'># we need to apply the inverse link function to the fitted parameters</span>
-<span class='fu'>pnorm</span>(<span class='no'>mod1</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in pnorm(mod1$par): object 'mod1' not found</span></div><div class='input'>
+<span class='fu'>pnorm</span>(<span class='no'>mod1</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in pnorm(mod1$par): objeto 'mod1' no encontrado</span></div><div class='input'>
 <span class='co'># Using logit link function</span>
 <span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>,
-            <span class='kw'>pi.link</span><span class='kw'>=</span><span class='st'>'logit'</span>, <span class='kw'>xi.link</span><span class='kw'>=</span><span class='st'>'logit'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): object 'y' not found</span></div><div class='input'><span class='co'># Summary table</span>
-<span class='fu'>summary</span>(<span class='no'>mod2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod2): object 'mod2' not found</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale we need</span>
+            <span class='kw'>pi.link</span><span class='kw'>=</span><span class='st'>'logit'</span>, <span class='kw'>xi.link</span><span class='kw'>=</span><span class='st'>'logit'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
+<span class='fu'>summary</span>(<span class='no'>mod2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod2): objeto 'mod2' no encontrado</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale we need</span>
 <span class='co'># to apply the inverse link function (logit) to the fitted parameters</span>
-<span class='fl'>1</span> / (<span class='fl'>1</span> + <span class='fu'>exp</span>(-<span class='no'>mod2</span>$<span class='no'>par</span>))</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'mod2' not found</span></div><div class='input'>
+<span class='fl'>1</span> / (<span class='fl'>1</span> + <span class='fu'>exp</span>(-<span class='no'>mod2</span>$<span class='no'>par</span>))</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): objeto 'mod2' no encontrado</span></div><div class='input'>
 <span class='co'># Using DEoptim optimizer, it is slower but it gives good results</span>
 <span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>,
-            <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'DEoptim'</span>, <span class='kw'>trace</span><span class='kw'>=</span><span class='fl'>50</span>, <span class='kw'>itermax</span><span class='kw'>=</span><span class='fl'>300</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): object 'y' not found</span></div><div class='input'><span class='co'># Summary table</span>
-<span class='fu'>summary</span>(<span class='no'>mod3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod3): object 'mod3' not found</span></div><div class='input'><span class='co'># we need to apply the inverse link function to obtain the parameters</span>
-<span class='fu'>pnorm</span>(<span class='no'>mod3</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in pnorm(mod3$par): object 'mod3' not found</span></div><div class='input'>
+            <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'DEoptim'</span>, <span class='kw'>trace</span><span class='kw'>=</span><span class='fl'>50</span>, <span class='kw'>itermax</span><span class='kw'>=</span><span class='fl'>300</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
+<span class='fu'>summary</span>(<span class='no'>mod3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod3): objeto 'mod3' no encontrado</span></div><div class='input'><span class='co'># we need to apply the inverse link function to obtain the parameters</span>
+<span class='fu'>pnorm</span>(<span class='no'>mod3</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in pnorm(mod3$par): objeto 'mod3' no encontrado</span></div><div class='input'>
 <span class='co'># Test 2 ------------------------------------------------------------------</span>
 <span class='co'># rcub.covariates is a function to generate a random sample from a cub model </span>
 <span class='co'># using covariates to model pi and xi and link function qnorm</span>
