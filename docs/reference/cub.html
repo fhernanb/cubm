@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cub
-
-Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters. — cub • cubm</title>
+<title>cub — cub • cubm</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,12 +30,9 @@ Function to fit a cub model. The structure can have covariates or not to model \
 
 
 
-<meta property="og:title" content="cub
+<meta property="og:title" content="cub — cub" />
 
-Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters. — cub" />
-
-<meta property="og:description" content="cub
-Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters." />
+<meta property="og:description" content="function to fit a cub model. The user could use covariates or not to model the parameters \(\pi\) and \(\xi\)." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -104,17 +99,14 @@ Function to fit a cub model. The structure can have covariates or not to model \
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cub
-
-Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters.</h1>
+    <h1>cub</h1>
     <small class="dont-index">Source: <a href='https://github.com/fhernanb/cubm/blob/master/R/cub.R'><code>R/cub.R</code></a></small>
     <div class="hidden name"><code>cub.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>cub</p>
-<p>Function to fit a cub model. The structure can have covariates or not to model \(\pi\) and \(\xi\) parameters.</p>
+    <p>function to fit a cub model. The user could use covariates or not to model the parameters \(\pi\) and \(\xi\).</p>
     
     </div>
 
@@ -171,7 +163,6 @@ Function to fit a cub model. The structure can have covariates or not to model \
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Test 1 ------------------------------------------------------------------</span>
 <span class='co'># Generating a random sample given the values of pi and xi</span>
-<span class='fu'>set.seed</span>(<span class='fl'>123</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub_dist.html'>rcub</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1000</span>, <span class='kw'>pi</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>xi</span><span class='kw'>=</span><span class='fl'>0.60</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
 <span class='fu'>summary</span>(<span class='no'>mod1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod1): objeto 'mod1' no encontrado</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale</span>
@@ -210,16 +201,16 @@ Function to fit a cub model. The structure can have covariates or not to model \
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -0.72680    0.17563 -4.1383 3.499e-05 ***
-#&gt; x1           0.67132    0.26333  2.5494   0.01079 *  
+#&gt; (Intercept) -1.29538    0.23023 -5.6264 1.840e-08 ***
+#&gt; x1           1.59069    0.34356  4.6301 3.655e-06 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.85375    0.20340 -9.1138 &lt; 2.2e-16 ***
-#&gt; x2           1.28115    0.29526  4.3390 1.431e-05 ***
+#&gt; (Intercept) -1.68864    0.17070 -9.8923 &lt; 2.2e-16 ***
+#&gt; x2           1.07582    0.26158  4.1128 3.909e-05 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -230,16 +221,16 @@ Function to fit a cub model. The structure can have covariates or not to model \
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -0.72722    0.17567 -4.1397 3.478e-05 ***
-#&gt; x1           0.67181    0.26339  2.5507   0.01075 *  
+#&gt; (Intercept) -1.29437    0.23009 -5.6256 1.849e-08 ***
+#&gt; x1           1.58898    0.34339  4.6273 3.705e-06 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.85406    0.20345  -9.113 &lt; 2.2e-16 ***
-#&gt; x2           1.28205    0.29534   4.341 1.418e-05 ***
+#&gt; (Intercept) -1.68900    0.17075 -9.8917 &lt; 2.2e-16 ***
+#&gt; x2           1.07686    0.26163  4.1160 3.854e-05 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -274,24 +265,24 @@ Function to fit a cub model. The structure can have covariates or not to model \
 <span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='no'>x1</span> + <span class='no'>country</span>,
            <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='no'>x2</span> + <span class='no'>country</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dataset</span>,
            <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'optim'</span>)
-<span class='fu'>summary</span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt; ---------------------------------------------------------------
+<span class='fu'>summary</span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Se han producido NaNs</span></div><div class='output co'>#&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
-#&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -1.059794   0.080590 -13.1504 &lt; 2.2e-16 ***
-#&gt; x1            1.065660   0.110373   9.6551 &lt; 2.2e-16 ***
-#&gt; countryjapan  0.979627   0.077268  12.6784 &lt; 2.2e-16 ***
-#&gt; countryusa   -0.664173   0.084222  -7.8860  3.12e-15 ***
+#&gt;              Estimate Std. Error  z value  Pr(&gt;|z|)    
+#&gt; (Intercept)  -1.52887    0.13953 -10.9575 &lt; 2.2e-16 ***
+#&gt; x1            1.29706    0.19999   6.4855 8.843e-11 ***
+#&gt; countryjapan  1.58474    0.16067   9.8633 &lt; 2.2e-16 ***
+#&gt; countryusa   -0.24416    0.16177  -1.5093    0.1312    
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -2.014525   0.067796 -29.7145 &lt; 2.2e-16 ***
-#&gt; x2            1.492094   0.063480  23.5049 &lt; 2.2e-16 ***
-#&gt; countryjapan  1.014659   0.056240  18.0417 &lt; 2.2e-16 ***
-#&gt; countryusa   -0.930035   0.322188  -2.8866  0.003894 ** 
+#&gt; (Intercept)  -2.043791   0.153601 -13.3058 &lt; 2.2e-16 ***
+#&gt; x2            1.189418   0.092891  12.8044 &lt; 2.2e-16 ***
+#&gt; countryjapan  1.191415   0.154322   7.7203 1.161e-14 ***
+#&gt; countryusa   -1.186520   0.535802  -2.2145    0.0268 *  
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
