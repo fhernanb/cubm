@@ -163,6 +163,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Test 1 ------------------------------------------------------------------</span>
 <span class='co'># Generating a random sample given the values of pi and xi</span>
+<span class='fu'>set.seed</span>(<span class='fl'>2018</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub_dist.html'>rcub</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1000</span>, <span class='kw'>pi</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>xi</span><span class='kw'>=</span><span class='fl'>0.60</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
 <span class='fu'>summary</span>(<span class='no'>mod1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod1): objeto 'mod1' no encontrado</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale</span>
@@ -201,16 +202,16 @@
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.29538    0.23023 -5.6264 1.840e-08 ***
-#&gt; x1           1.59069    0.34356  4.6301 3.655e-06 ***
+#&gt; (Intercept) -1.54014    0.25914 -5.9434 2.792e-09 ***
+#&gt; x1           1.81997    0.38036  4.7849 1.711e-06 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.68864    0.17070 -9.8923 &lt; 2.2e-16 ***
-#&gt; x2           1.07582    0.26158  4.1128 3.909e-05 ***
+#&gt; (Intercept) -1.80140    0.20436 -8.8146 &lt; 2.2e-16 ***
+#&gt; x2           1.18567    0.31862  3.7213 0.0001982 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -221,16 +222,16 @@
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.29437    0.23009 -5.6256 1.849e-08 ***
-#&gt; x1           1.58898    0.34339  4.6273 3.705e-06 ***
+#&gt; (Intercept) -1.54003    0.25909 -5.9439 2.783e-09 ***
+#&gt; x1           1.81989    0.38031  4.7853 1.707e-06 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.68900    0.17075 -9.8917 &lt; 2.2e-16 ***
-#&gt; x2           1.07686    0.26163  4.1160 3.854e-05 ***
+#&gt; (Intercept) -1.80140    0.20437 -8.8145 &lt; 2.2e-16 ***
+#&gt; x2           1.18555    0.31862  3.7210 0.0001985 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -265,24 +266,24 @@
 <span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='no'>x1</span> + <span class='no'>country</span>,
            <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='no'>x2</span> + <span class='no'>country</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dataset</span>,
            <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'optim'</span>)
-<span class='fu'>summary</span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Se han producido NaNs</span></div><div class='output co'>#&gt; ---------------------------------------------------------------
+<span class='fu'>summary</span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
-#&gt;              Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -1.52887    0.13953 -10.9575 &lt; 2.2e-16 ***
-#&gt; x1            1.29706    0.19999   6.4855 8.843e-11 ***
-#&gt; countryjapan  1.58474    0.16067   9.8633 &lt; 2.2e-16 ***
-#&gt; countryusa   -0.24416    0.16177  -1.5093    0.1312    
+#&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
+#&gt; (Intercept)  -0.973176   0.079563 -12.2316 &lt; 2.2e-16 ***
+#&gt; x1            1.027647   0.110784   9.2761 &lt; 2.2e-16 ***
+#&gt; countryjapan  0.986653   0.077883  12.6684 &lt; 2.2e-16 ***
+#&gt; countryusa   -0.776369   0.090314  -8.5963 &lt; 2.2e-16 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -2.043791   0.153601 -13.3058 &lt; 2.2e-16 ***
-#&gt; x2            1.189418   0.092891  12.8044 &lt; 2.2e-16 ***
-#&gt; countryjapan  1.191415   0.154322   7.7203 1.161e-14 ***
-#&gt; countryusa   -1.186520   0.535802  -2.2145    0.0268 *  
+#&gt; (Intercept)  -2.028311   0.061086 -33.2043 &lt; 2.2e-16 ***
+#&gt; x2            1.543005   0.060870  25.3492 &lt; 2.2e-16 ***
+#&gt; countryjapan  1.013282   0.050393  20.1077 &lt; 2.2e-16 ***
+#&gt; countryusa   -0.813001   0.291366  -2.7903  0.005266 ** 
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>

@@ -1,7 +1,7 @@
 [![Travis build status](https://travis-ci.org/fhernanb/cubm.svg?branch=master)](https://travis-ci.org/fhernanb/cubm)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version-ago/cubm)](https://cran.r-project.org/package=cubm)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/cubm)](https://cran.r-project.org/package=cubm) 
-[![codecov](https://codecov.io/gh/fhernanb/cubm/branch/master/graph/badge.svg)](https://codecov.io/gh/fhernanb/cubm)
+
 
 # usefultools <img src="man/figures/logo.png" align="right" alt="" width="120" />
 

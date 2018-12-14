@@ -18,6 +18,7 @@
 #' @examples
 #' # Test 1 ------------------------------------------------------------------
 #' # Generating a random sample given the values of pi and xi
+#' set.seed(2018)
 #' y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
 #' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
 #' # Summary table
