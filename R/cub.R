@@ -213,7 +213,6 @@ summary.cub <- function(object, ...) {
 # Bootstrap
 # This function is used to obtain standard error for betas
 # by bootstrap method.
-#' @export
 boot_cub <- function(object) {
   datos <- object$model
   fun <- function(data, indices, modelo) {
