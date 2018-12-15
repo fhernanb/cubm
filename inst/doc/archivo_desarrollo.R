@@ -5,5 +5,7 @@ devtools::install()
 
 require(cubm)
 
+devtools::check()
+
 pkgdown::build_site()
 

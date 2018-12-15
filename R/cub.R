@@ -56,7 +56,7 @@ cub <- function(pi.fo, xi.fo, m, data=NULL, subset=NULL,
   class(res) <- "cub"
   res
 }
-#'
+
 # model.matrix.cub --------------------------------------------------------
 model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
   stopifnot (class(pi.fo) == 'formula')
@@ -69,7 +69,7 @@ model.matrix.cub <- function(pi.fo, xi.fo, data=NULL) {
   y <- model.frame(pi.fo, data=data)[, 1]
   list(mat.pi=mat.pi, mat.xi=mat.xi, y=y)
 }
-#'
+
 # fit.cub -----------------------------------------------------------------
 fit.cub <- function(matri, m, optimizer, pi.link, xi.link,
                     initial.values, ...) {
@@ -131,7 +131,7 @@ fit.cub <- function(matri, m, optimizer, pi.link, xi.link,
                  xi.link=xi.link)
   fit <- c(fit, inputs)
 }
-#'
+
 # llcub -------------------------------------------------------------------
 # This function calculates the minus log-likelihood
 llcub <- function(theta, y, M, X.pi, X.xi,
@@ -146,7 +146,7 @@ llcub <- function(theta, y, M, X.pi, X.xi,
   ll <- sum(dcub(pi=pi, xi=xi, x=y, m=M, log=TRUE))
   -ll  # minus to use with optim/nlminb function
 }
-#'
+
 # fitted.pi and fitted.xi -------------------------------------------------
 fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, X.xi, fit) {
   betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
@@ -160,7 +160,7 @@ fitted.pi <- function(p.pi, p.xi, pi.link, X.pi, X.xi, fit) {
   else pi <- 1/(1 + exp(-betas.pi))  
   return(as.numeric(pi))    
 }
-#'
+
 fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   betas.pi <- matrix(fit$par[1:ncol(X.pi)], ncol=1)
   betas.xi <- matrix(fit$par[-(1:ncol(X.pi))], ncol=1)

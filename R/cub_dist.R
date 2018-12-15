@@ -50,7 +50,6 @@
 #' barplot(prop.table(table(y)))
 #' @name cub_dist
 NULL
-#'
 #' @rdname cub_dist
 #' @importFrom stats dbinom
 #' @export
