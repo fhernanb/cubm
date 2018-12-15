@@ -164,8 +164,8 @@
     <pre class="examples"><div class='input'><span class='co'># Test 1 ------------------------------------------------------------------</span>
 <span class='co'># Generating a random sample given the values of pi and xi</span>
 <span class='fu'>set.seed</span>(<span class='fl'>2018</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub_dist.html'>rcub</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1000</span>, <span class='kw'>pi</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>xi</span><span class='kw'>=</span><span class='fl'>0.60</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>)
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub_dist.html'>rcub</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>pi</span><span class='kw'>=</span><span class='fl'>0.15</span>, <span class='kw'>xi</span><span class='kw'>=</span><span class='fl'>0.60</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='fu'>length</span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>cub</span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='fl'>1</span>, <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='fl'>1</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'nlminb'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(predvars, data, env): objeto 'y' no encontrado</span></div><div class='input'><span class='co'># Summary table</span>
 <span class='fu'>summary</span>(<span class='no'>mod1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summary(mod1): objeto 'mod1' no encontrado</span></div><div class='input'><span class='co'># To obtain the fitted parameters in the appropiate scale</span>
 <span class='co'># we need to apply the inverse link function to the fitted parameters</span>
 <span class='fu'>pnorm</span>(<span class='no'>mod1</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in pnorm(mod1$par): objeto 'mod1' no encontrado</span></div><div class='input'>
@@ -202,16 +202,16 @@
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.54014    0.25914 -5.9434 2.792e-09 ***
-#&gt; x1           1.81997    0.38036  4.7849 1.711e-06 ***
+#&gt; (Intercept) -1.04315    0.20358 -5.1240 2.991e-07 ***
+#&gt; x1           1.15910    0.31387  3.6929 0.0002217 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.80140    0.20436 -8.8146 &lt; 2.2e-16 ***
-#&gt; x2           1.18567    0.31862  3.7213 0.0001982 ***
+#&gt; (Intercept) -2.07128    0.19906 -10.405 &lt; 2.2e-16 ***
+#&gt; x2           1.81436    0.29430   6.165 7.049e-10 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -222,16 +222,16 @@
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.54003    0.25909 -5.9439 2.783e-09 ***
-#&gt; x1           1.81989    0.38031  4.7853 1.707e-06 ***
+#&gt; (Intercept) -1.04326    0.20361 -5.1237 2.996e-07 ***
+#&gt; x1           1.15911    0.31392  3.6924 0.0002221 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
-#&gt;             Estimate Std. Error z value  Pr(&gt;|z|)    
-#&gt; (Intercept) -1.80140    0.20437 -8.8145 &lt; 2.2e-16 ***
-#&gt; x2           1.18555    0.31862  3.7210 0.0001985 ***
+#&gt;             Estimate Std. Error  z value  Pr(&gt;|z|)    
+#&gt; (Intercept) -2.07132    0.19906 -10.4057 &lt; 2.2e-16 ***
+#&gt; x2           1.81464    0.29432   6.1655 7.025e-10 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>
@@ -270,20 +270,20 @@
 #&gt; Fixed effects for probit(pi) 
 #&gt; ---------------------------------------------------------------
 #&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -0.973176   0.079563 -12.2316 &lt; 2.2e-16 ***
-#&gt; x1            1.027647   0.110784   9.2761 &lt; 2.2e-16 ***
-#&gt; countryjapan  0.986653   0.077883  12.6684 &lt; 2.2e-16 ***
-#&gt; countryusa   -0.776369   0.090314  -8.5963 &lt; 2.2e-16 ***
+#&gt; (Intercept)  -0.972280   0.079795 -12.1847 &lt; 2.2e-16 ***
+#&gt; x1            1.036821   0.110716   9.3647 &lt; 2.2e-16 ***
+#&gt; countryjapan  0.910900   0.076823  11.8572 &lt; 2.2e-16 ***
+#&gt; countryusa   -0.818991   0.085195  -9.6132 &lt; 2.2e-16 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------
 #&gt; Fixed effects for probit(xi) 
 #&gt; ---------------------------------------------------------------
 #&gt;               Estimate Std. Error  z value  Pr(&gt;|z|)    
-#&gt; (Intercept)  -2.028311   0.061086 -33.2043 &lt; 2.2e-16 ***
-#&gt; x2            1.543005   0.060870  25.3492 &lt; 2.2e-16 ***
-#&gt; countryjapan  1.013282   0.050393  20.1077 &lt; 2.2e-16 ***
-#&gt; countryusa   -0.813001   0.291366  -2.7903  0.005266 ** 
+#&gt; (Intercept)  -2.002894   0.062513 -32.0398 &lt; 2.2e-16 ***
+#&gt; x2            1.523724   0.062776  24.2724 &lt; 2.2e-16 ***
+#&gt; countryjapan  0.961722   0.050420  19.0743 &lt; 2.2e-16 ***
+#&gt; countryusa   -0.838100   0.249831  -3.3547 0.0007946 ***
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; ---------------------------------------------------------------</div><div class='input'>

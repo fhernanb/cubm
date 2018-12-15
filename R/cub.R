@@ -19,7 +19,8 @@
 #' # Test 1 ------------------------------------------------------------------
 #' # Generating a random sample given the values of pi and xi
 #' set.seed(2018)
-#' y <- rcub(n=1000, pi=0.15, xi=0.60, m=5)
+#' y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
+#' length(y)
 #' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
 #' # Summary table
 #' summary(mod1)
@@ -295,12 +296,16 @@ summary.cub <- function(object, ...) {
 # Bootstrap
 # This function is used to obtain standard error for betas
 # by bootstrap method.
-boot_cub <- function(object){
-  nboot <- 100
-  data <- object$model
-  bs <- function(data, indices) update(object, data=data[indices, ])$par
-  resul <- boot(data, statistic=bs, R=nboot)
-  return(apply(resul$t, 2, sd))
+#' @export
+boot_cub <- function(object) {
+  datos <- object$model
+  fun <- function(data, indices, modelo) {
+    dt <- data[indices, , drop=FALSE]
+    aux <- update(modelo, data=dt)
+    aux$par
+  }
+  res <- boot::boot(data=datos, statistic=fun, R=1000, modelo=object)
+  return(apply(res$t, 2, sd))
 }
 # -----------------------------------------------------------------
 # ---------------------  print function ---------------------------
