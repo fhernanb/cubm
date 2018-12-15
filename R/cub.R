@@ -16,92 +16,9 @@
 #' @param ... Further arguments to be passed to \code{\link[DEoptim]{DEoptim.control}}.
 #' 
 #' @examples
-#' # Test 1 ------------------------------------------------------------------
-#' # Generating a random sample given the values of pi and xi
-#' set.seed(2018)
-#' y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
-#' length(y)
-#' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
-#' # Summary table
-#' summary(mod1)
-#' # To obtain the fitted parameters in the appropiate scale
-#' # we need to apply the inverse link function to the fitted parameters
-#' pnorm(mod1$par)
-#' 
-#' # Using logit link function
-#' mod2 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb',
-#'             pi.link='logit', xi.link='logit')
-#' # Summary table
-#' summary(mod2)
-#' # To obtain the fitted parameters in the appropiate scale we need
-#' # to apply the inverse link function (logit) to the fitted parameters
-#' 1 / (1 + exp(-mod2$par))
-#' 
-#' # Using DEoptim optimizer, it is slower but it gives good results
-#' mod3 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5,
-#'             optimizer='DEoptim', trace=50, itermax=300)
-#' # Summary table
-#' summary(mod3)
-#' # we need to apply the inverse link function to obtain the parameters
-#' pnorm(mod3$par)
-#' 
-#' # Test 2 ------------------------------------------------------------------
-#' # rcub.covariates is a function to generate a random sample from a cub model 
-#' # using covariates to model pi and xi and link function qnorm
-#' rcub.covariates <- function(n, b0, b1, g0, g1, m = 5) {
-#'   x1 <- runif(n)
-#'   x2 <- runif(n)
-#'   pi <- pnorm(b0 + b1 * x1)
-#'   xi <- pnorm(g0 + g1 * x2)
-#'   y <- rcub(n=n, pi=pi, xi=xi, m=m)
-#'   data.frame(y, x1, x2, xi, pi)
-#' }
-#' 
-#' # Generating the data
-#' dataset <- rcub.covariates(n=1000, b0=-1, b1=1, g0=-2, g1=1.5)
-#' 
-#' # Fitting the model with optim optimizer
-#' fit1 <- cub(pi.fo=y ~ x1, xi.fo= ~ x2, m=5, data=dataset,
-#'             optimizer='optim')
-#' summary(fit1)
-#' 
-#' # Fitting the model with DEoptim optimizer
-#' fit2 <- cub(pi.fo=y ~ x1, xi.fo=~ x2, m=5, data=dataset,
-#'             optimizer='DEoptim', trace=0, itermax=300)
-#' summary(fit2)
-#' 
-#' # Test 3 ------------------------------------------------------------------
-#' # Simulating a dataset with qualitative variables
-#' n <- 10000
-#' # Betas for pi
-#' b0 <- -1
-#' b1 <- 1
-#' # Betas for xi
-#' g0 <- -2
-#' g1 <- 1.5
-#' 
-#' beta_japan <- 1 # Coefficient for japan
-#' beta_usa <- -0.7 # Coefficient for usa, france is reference level
-#' 
-#' # m value
-#' m <- 5
-#' 
-#' # Simulating the dataset
-#' x1 <- runif(n)
-#' x2 <- runif(n)
-#' country <- sample(c('france', 'japan', 'usa'), size=n, replace=TRUE)
-#' aux <- model.matrix(~country)[, -1] %*% matrix(c(beta_japan,  beta_usa))
-#' pi <- pnorm(b0 + b1 * x1 + aux)
-#' xi <- pnorm(g0 + g1 * x2 + aux)
-#' y <- rcub(n=n, pi=pi, xi=xi, m=m)
-#' # Dataset
-#' dataset <- data.frame(y, x1, x2, country)
-#' 
-#' # Fitting the model
-#' mod <- cub(pi.fo=y ~ x1 + country,
-#'            xi.fo=~ x2 + country, m=5, data=dataset,
-#'            optimizer='optim')
-#' summary(mod)
+#' x <- 1:5
+#' y <- rnorm(5)
+#' mod <- lm(y ~ x)
 #' 
 #' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula sd printCoefmat
 #' @importFrom DEoptim DEoptim
