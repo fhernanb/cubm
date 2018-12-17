@@ -34,8 +34,12 @@ cub(pi.fo, xi.fo, m, data = NULL, subset = NULL,
 function to fit a cub model. The user could use covariates or not to model the parameters \eqn{\pi} and \eqn{\xi}.
 }
 \examples{
-x <- 1:5
-y <- rnorm(5)
-mod <- lm(y ~ x)
+# Example 1 ---------------------------------------------------------------
+# Generating a random sample given the values of pi and xi
+set.seed(1234)
+y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
+mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
+# Summary table
+summary(mod1)
 
 }
