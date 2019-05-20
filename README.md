@@ -3,7 +3,7 @@
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/cubm)](https://cran.r-project.org/package=cubm) 
 
 
-# usefultools <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# cubm <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 The `cubm` package is useful to fit cub models by Maximum Likelihood method.
 
