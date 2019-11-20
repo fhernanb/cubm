@@ -2,8 +2,11 @@
 
 S3method(print,cub)
 S3method(summary,cub)
+export(Diss)
+export(F2)
 export(cub)
 export(dcub)
+export(icub)
 export(pcub)
 export(qcub)
 export(rcub)
