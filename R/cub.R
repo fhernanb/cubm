@@ -18,11 +18,30 @@
 #' @examples
 #' # Example 1 ---------------------------------------------------------------
 #' # Generating a random sample given the values of pi and xi
-#' set.seed(1234)
+#' set.seed(2019)
 #' y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
-#' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, optimizer='nlminb')
-#' # Summary table
+#' mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5,
+#'             pi.link='probit', xi.link='probit', 
+#'             optimizer='nlminb')
 #' summary(mod1)
+#' 
+#' # estimations for pi and xi
+#' pnorm(mod1$par[1])
+#' pnorm(mod1$par[2])
+#' 
+#' # Example 2 ---------------------------------------------------------------
+#' # Generating a random sample given the values of pi and xi 
+#' # estimation using logit link function
+#' set.seed(2019)
+#' y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
+#' mod2 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, 
+#'             pi.link='logit', xi.link='logit', 
+#'             optimizer='nlminb')
+#' summary(mod2)
+#' 
+#' # estimations for pi and xi
+#' boot::inv.logit(mod2$par[1])
+#' boot::inv.logit(mod2$par[2])
 #' 
 #' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula sd printCoefmat
 #' @importFrom DEoptim DEoptim
