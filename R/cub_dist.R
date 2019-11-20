@@ -9,7 +9,7 @@
 #' @param n number of observations
 #' @param m the maximum value.
 #' @param log logical; if TRUE, densities are given as log.
-#' @param lower.tail logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.
+#' @param lower.tail logical; if TRUE (default), probabilities are \code{P[X <= x]} otherwise, \code{P[X > x]}.
 #' 
 #' @examples 
 #' # Examples with dcub

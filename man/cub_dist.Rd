@@ -27,7 +27,7 @@ rcub(n, pi, xi, m = 5)
 
 \item{log}{logical; if TRUE, densities are given as log.}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X ≤ x]} otherwise, \code{P[X > x]}.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are \code{P[X <= x]} otherwise, \code{P[X > x]}.}
 
 \item{p}{vector of probabilities.}
 
