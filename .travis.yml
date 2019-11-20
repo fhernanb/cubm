@@ -3,7 +3,8 @@
 language: R
 sudo: false
 cache: packages
+warnings_are_errors: true
 
-after_failure:
-  - cat $TRAVIS_BUILD_DIR/cubm.Rcheck/00install.out
-  - cat $TRAVIS_BUILD_DIR/cubm.Rcheck/00check.log
+os:
+  - linux
+  - osx
