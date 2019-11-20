@@ -43,6 +43,19 @@
 #' boot::inv.logit(mod2$par[1])
 #' boot::inv.logit(mod2$par[2])
 #' 
+#' # Example 3 ---------------------------------------------------------------
+#' # Generating a random sample given the values of pi and xi 
+#' # estimation using logit and probit as link function
+#' set.seed(2019)
+#' y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
+#' mod3 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5, 
+#'             pi.link='logit', xi.link='probit',
+#'             optimizer='nlminb')
+#' summary(mod3)
+#' # estimations for pi and xi
+#' boot::inv.logit(mod3$par[1])
+#' pnorm(mod3$par[2])
+#' 
 #' @importFrom stats model.matrix model.frame nlminb optim pnorm as.formula sd printCoefmat
 #' @importFrom DEoptim DEoptim
 #' @export
