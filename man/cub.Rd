@@ -38,6 +38,7 @@ function to fit a cub model. The user could use covariates or not to model the p
 # Generating a random sample given the values of pi and xi
 set.seed(2019)
 y <- rcub(n=100, pi=0.15, xi=0.60, m=5)
+barplot(table(y))
 mod1 <- cub(pi.fo=y ~ 1, xi.fo=~ 1, m=5,
             pi.link='probit', xi.link='probit', 
             optimizer='nlminb')
