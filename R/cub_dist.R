@@ -1,6 +1,6 @@
 #' cub distribution
 #' 
-#' Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
+#' Density, distribution function, quantile function and random generation for the cub distribution given parameters pi and xi.
 #' 
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.

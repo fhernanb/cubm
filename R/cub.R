@@ -1,6 +1,6 @@
 #' cub
 #' 
-#' function to fit a cub model. The user could use covariates or not to model the parameters \eqn{\pi} and \eqn{\xi}.
+#' function to fit a cub model. The user could use covariates or not to model the parameters pi and xi.
 #' 
 #' @aliases summary.cub
 #' 

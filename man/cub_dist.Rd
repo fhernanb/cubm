@@ -34,7 +34,7 @@ rcub(n, pi, xi, m = 5)
 \item{n}{number of observations}
 }
 \description{
-Density, distribution function, quantile function and random generation for the cub distribution given parameters \eqn{\pi} and \eqn{\xi}.
+Density, distribution function, quantile function and random generation for the cub distribution given parameters pi and xi.
 }
 \examples{
 # Examples with dcub
