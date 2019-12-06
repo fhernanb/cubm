@@ -127,7 +127,7 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#' # Example 1 </span>
+    <pre class="examples"><span class='co'>#' # Example 1 </span>
 <span class='co'>#' # Generating a random sample given the values of pi and xi</span>
 <span class='co'>#' y &lt;- rcub(n = 1000, pi = 0.15, xi = 0.60, m = 8)</span>
 <span class='co'>#' mod &lt;- cub(pi.fo = y ~ 1, xi.fo = ~ 1, m = 8, shift = 1)</span>
@@ -135,7 +135,8 @@
 
 <span class='co'># Example 2 </span>
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub.html'>cub</a></span>(<span class='kw'>pi.fo</span> <span class='kw'>=</span> <span class='no'>global</span> ~ <span class='no'>lage</span>, <span class='kw'>xi.fo</span> <span class='kw'>=</span> ~ <span class='no'>lage</span>,  <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>univer</span>)
-<span class='fu'>F2</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt; [1] 0.9745356</div><div class='input'>
+<span class='fu'>F2</span>(<span class='no'>fit</span>)
+
 <span class='co'># Example 3 </span>
 <span class='co'># Simulating a dataset with qualitative variables</span>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>10000</span>
@@ -165,8 +166,7 @@
 <span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cub.html'>cub</a></span>(<span class='kw'>pi.fo</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='no'>x1</span> + <span class='no'>country</span>,
            <span class='kw'>xi.fo</span><span class='kw'>=</span>~ <span class='no'>x2</span> + <span class='no'>country</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>5</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dataset</span>,
            <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>'optim'</span>)
-<span class='fu'>F2</span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt; [1] 0.9963285</div><div class='input'>
-</div></pre>
+<span class='fu'>F2</span>(<span class='no'>mod</span>)</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
