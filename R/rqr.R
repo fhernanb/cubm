@@ -8,17 +8,63 @@
 #' @param m the maximum value.
 #' 
 #' @examples 
-#' y <- rcub(n=1000, pi=0.15, xi=0.60, m=8)
-#' # To fit the model
+#' 
+#' # Example 1, without covariates -------------------------------------------
+#' 
+#' set.seed(456)
+#' y <- rcub(n=1000, pi=0.15, xi=0.6, m=8)
+#' 
 #' mod1 <- cub(pi.fo=y~1, xi.fo=~1, m=8)
-#' # To obtain the RQR
+#' summary(mod1)
+#' 
+#' # Residuals for the correct model
 #' r1 <- rqr(y, pi=mod1$fitted.pi, xi=mod1$fitted.xi, m=8)
-#' # To check the normality
-#' qqplot(y=r1, x=qnorm(ppoints(1000), mean=0, sd=1), las=1,
-#'        ylab='RQR', xlab='Theoretical Quantiles N(0, 1)')
-#' abline(a=0, b=1, col='red')
-#' # Using a test to check if rqr follow a N(0, 1)
+#' 
+#' # Residuals for a wrong model, using arbitrary estimated parameters
+#' r2 <- rqr(y, pi=0.8, xi=0.2, m=8)
+#' 
+#' par(mfrow=c(1, 2))
+#' car::qqPlot(r1, dist="norm", mean=0, sd=1, main='Correct model', las=1)
+#' car::qqPlot(r2, dist="norm", mean=0, sd=1, main='Wrong model', las=1)
+#' 
 #' ks.test(r1, "pnorm", mean=0, sd=1)
+#' ks.test(r2, "pnorm", mean=0, sd=1)
+#' 
+#' 
+#' # Example 2, with covariates ----------------------------------------------
+#' 
+#' # Function to generate some random values from a CUB model
+#' # pi explained by x1
+#' # xi explained by x2
+#' 
+#' gendata <- function(n, m) {
+#'   x1 <- runif(n)
+#'   x2 <- rpois(n, lambda=4)
+#'   pi <- pnorm(-1 + 2 * x1)
+#'   xi <- pnorm( 4 - 1 * x2)
+#'   y <- rcub(n=n, pi=pi, xi=xi, m=m)
+#'   data.frame(y, x1, x2)
+#' }
+#' 
+#' set.seed(12345)
+#' dataset <- gendata(n=500, m=5)
+#' 
+#' # This is the correct model, pi explained by x1 and xi explained by x2
+#' mod3 <- cub(pi.fo=y ~ x1, xi.fo= ~ x2, m=5, data=dataset)
+#' 
+#' # This is the wrong model
+#' mod4 <- cub(pi.fo=y ~ x2, xi.fo=~ x1, m=5, data=dataset)
+#' 
+#' # The residuals for both models
+#' r3 <- rqr(dataset$y, pi=mod3$fitted.pi, xi=mod3$fitted.xi, m=5)
+#' r4 <- rqr(dataset$y, pi=mod4$fitted.pi, xi=mod4$fitted.xi, m=5)
+#' 
+#' par(mfrow=c(1, 2))
+#' car::qqPlot(r3, dist="norm", mean=0, sd=1, main='Correct model', las=1)
+#' car::qqPlot(r4, dist="norm", mean=0, sd=1, main='Wrong model', las=1)
+#' 
+#' ks.test(r3, "pnorm", mean=0, sd=1)
+#' ks.test(r4, "pnorm", mean=0, sd=1)
 #' 
 #' @importFrom stats runif
 #' @export
