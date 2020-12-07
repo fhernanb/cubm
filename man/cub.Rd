@@ -5,9 +5,18 @@
 \alias{summary.cub}
 \title{cub}
 \usage{
-cub(pi.fo, xi.fo, m, data = NULL, subset = NULL,
-  optimizer = "nlminb", pi.link = "probit", xi.link = "probit",
-  initial.values = NULL, ...)
+cub(
+  pi.fo,
+  xi.fo,
+  m,
+  data = NULL,
+  subset = NULL,
+  optimizer = "nlminb",
+  pi.link = "probit",
+  xi.link = "probit",
+  initial.values = NULL,
+  ...
+)
 }
 \arguments{
 \item{pi.fo}{an object of class \code{\link[stats]{formula}}, a symbolic description of the model to fit pi parameter.}

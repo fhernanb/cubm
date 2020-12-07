@@ -205,7 +205,7 @@ fitted.xi <- function(p.pi, p.xi, xi.link, X.pi, X.xi, fit) {
   else if (p.xi == 1 && xi.link == 'probit')
   {xi <- pnorm(betas.xi)}
   else if (p.xi != 1 && xi.link =='logit')
-  {xi <- 1/(1 + exp(-(X.pi %*% betas.xi)))}
+  {xi <- 1/(1 + exp(-(X.xi %*% betas.xi)))}
   else xi <- 1/(1 + exp(-betas.xi))
   return(as.numeric(xi))
 }

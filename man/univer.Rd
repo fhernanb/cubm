@@ -4,7 +4,8 @@
 \name{univer}
 \alias{univer}
 \title{Evaluation of the Orientation Services 2002}
-\format{The description of subjects' covariates is:
+\format{
+The description of subjects' covariates is:
 \describe{
 \item{\code{Faculty}}{A factor variable, with levels ranging from 1 to 13 indicating the coding 
 for the different university faculties}
@@ -25,7 +26,8 @@ Analyzed ordinal variables (Likert ordinal scale):
 \item{\code{Officeho}}{Judgment about the Office hours}
 \item{\code{Competen}}{Judgement about the competence of the staff}  
 \item{\code{Global}}{Global satisfaction}
-}}
+}
+}
 \source{
 \url{https://cran.r-project.org/web/packages/CUB/CUB.pdf}
 }
